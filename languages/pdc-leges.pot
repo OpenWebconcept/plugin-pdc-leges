@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PDC Leges\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-31 14:21+0200\n"
+"POT-Creation-Date: 2018-10-03 11:22+0200\n"
 "POT-Revision-Date: Fri Nov 27 2015 13:26:26 GMT+0100 (W. Europe Standard Time)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
@@ -25,161 +25,122 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: ../node_modules\n"
 "X-Poedit-SearchPathExcluded-2: ../vendor\n"
 
-#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:201
+#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:225
 msgid "New price"
 msgstr ""
 
-#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:205
+#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:229
 msgid "Price"
 msgstr ""
 
-#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:209
-#: Leges/Metabox/MetaboxServiceProvider.php:49
-#: Leges/PostType/LegesPostTypeServiceProvider.php:83
+#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:233
+#: Leges/Metabox/MetaboxServiceProvider.php:60
+#: Leges/PostType/LegesPostTypeServiceProvider.php:95
 msgid "Date new lege active"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:29
+#: Leges/Metabox/MetaboxServiceProvider.php:40
 msgid "Lege settings"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:37
+#: Leges/Metabox/MetaboxServiceProvider.php:48
 msgid "Lege price"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:38
-#: Leges/Metabox/MetaboxServiceProvider.php:44
+#: Leges/Metabox/MetaboxServiceProvider.php:49
+#: Leges/Metabox/MetaboxServiceProvider.php:55
 msgid "Price in &euro;"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:43
+#: Leges/Metabox/MetaboxServiceProvider.php:54
 msgid "Lege new price"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:52
+#: Leges/Metabox/MetaboxServiceProvider.php:63
 msgid "dd-mm-yy"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:59
+#: Leges/Metabox/MetaboxServiceProvider.php:70
 msgid "(dd-mm-yy)"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:42
+#: Leges/PostType/LegesPostTypeServiceProvider.php:54
 msgctxt "post type general name"
 msgid "Leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:43
+#: Leges/PostType/LegesPostTypeServiceProvider.php:55
 msgctxt "post type singular name"
 msgid "Lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:44
+#: Leges/PostType/LegesPostTypeServiceProvider.php:56
 msgctxt "admin menu"
 msgid "Leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:45
+#: Leges/PostType/LegesPostTypeServiceProvider.php:57
 msgctxt "add new on admin bar"
 msgid "Leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:46
+#: Leges/PostType/LegesPostTypeServiceProvider.php:58
 msgctxt "lege"
 msgid "Add new lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:47
+#: Leges/PostType/LegesPostTypeServiceProvider.php:59
 msgid "Add new lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:48
+#: Leges/PostType/LegesPostTypeServiceProvider.php:60
 msgid "New lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:49
+#: Leges/PostType/LegesPostTypeServiceProvider.php:61
 msgid "Edit lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:50
+#: Leges/PostType/LegesPostTypeServiceProvider.php:62
 msgid "View lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:51
+#: Leges/PostType/LegesPostTypeServiceProvider.php:63
 msgid "All leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:52
+#: Leges/PostType/LegesPostTypeServiceProvider.php:64
 msgid "Search leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:53
+#: Leges/PostType/LegesPostTypeServiceProvider.php:65
 msgid "Parent leges:"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:54
+#: Leges/PostType/LegesPostTypeServiceProvider.php:66
 msgid "No leges found."
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:55
+#: Leges/PostType/LegesPostTypeServiceProvider.php:67
 msgid "No leges found in Trash."
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:60
+#: Leges/PostType/LegesPostTypeServiceProvider.php:72
 msgid "PDC leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:75
+#: Leges/PostType/LegesPostTypeServiceProvider.php:87
 msgid "Lege price (in &euro;)"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:79
+#: Leges/PostType/LegesPostTypeServiceProvider.php:91
 msgid "Lege new price (in &euro;)"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:88
+#: Leges/PostType/LegesPostTypeServiceProvider.php:100
 msgid "Lege shortcode"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:94
+#: Leges/PostType/LegesPostTypeServiceProvider.php:106
 msgid "Published"
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/functions.php:61
-msgid "Post types must be registered on the \"init\" hook."
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/functions.php:134
-msgid "Taxonomies must be registered on the \"init\" hook."
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:673
-msgid "Author"
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:975
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-cpt-admin.php:1002
-#, php-format
-msgid "Invalid connection type: %s"
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-cpt.php:692
-#, php-format
-msgid ""
-"Post type query var \"%s\" clashes with a taxonomy query var of the same name"
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-taxonomy-admin.php:422
-msgid "Not specified"
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-taxonomy.php:222
-#, php-format
-msgid ""
-"Taxonomy query var \"%s\" clashes with a post type query var of the same name"
-msgstr ""
-
-#: Leges/vendor/johnbillion/extended-cpts/src/class-extended-taxonomy.php:228
-#, php-format
-msgid "Taxonomy query var \"%s\" is not allowed"
 msgstr ""
