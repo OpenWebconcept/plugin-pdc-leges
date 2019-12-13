@@ -142,6 +142,10 @@ msgstr "Lege shortcode"
 msgid "Published"
 msgstr "Gepubliceerd"
 
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:112
+msgid "Modified"
+msgstr "Aangepast"
+
 #~ msgctxt "post type general name"
 #~ msgid "PDC leges"
 #~ msgstr "PDC leges"

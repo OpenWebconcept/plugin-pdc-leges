@@ -144,3 +144,7 @@ msgstr ""
 #: Leges/PostType/LegesPostTypeServiceProvider.php:106
 msgid "Published"
 msgstr ""
+
+#: Leges/PostType/LegesPostTypeServiceProvider.php:112
+msgid "Published"
+msgstr ""
