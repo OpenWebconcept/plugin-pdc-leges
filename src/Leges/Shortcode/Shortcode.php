@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Handles shortcode generation.
  */
@@ -31,12 +32,9 @@ class Shortcode
      */
     public function addShortcode($attributes)
     {
+        $attributes = shortcode_atts(['id' => 0], $attributes);
 
-        $attributes = shortcode_atts([
-            'id' => 0
-        ], $attributes);
-
-        if (!isset($attributes['id']) or empty($attributes['id']) or ($attributes['id'] < 1)) {
+        if (!isset($attributes['id']) || empty($attributes['id']) || ($attributes['id'] < 1)) {
             return false;
         }
 
