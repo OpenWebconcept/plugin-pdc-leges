@@ -1,0 +1,21 @@
+name: "plugin-pdc-leges"
+
+publiccodeYmlVersion: 1.0
+url: "https://github.com/OpenWebconcept/plugin-pdc-leges"
+
+platforms:
+  - "web"
+
+categories:
+  - "application-development"
+
+softwareType: "softwareAddon"
+
+description:
+  localisedName: "PDC Leges"
+  shortDescription: "Met deze plugin kan je de leges beheren. De kosten van een product kan je in een tabel beheren en eenvoudig aanpassen."
+  longDescription: "Met deze plugin kan je de leges beheren. De kosten van een product kan je in een tabel beheren en eenvoudig aanpassen."
+
+nl:
+  commonground:
+    layerType: "service"
