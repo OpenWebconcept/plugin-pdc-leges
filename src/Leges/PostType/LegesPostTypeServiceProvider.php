@@ -38,6 +38,8 @@ class LegesPostTypeServiceProvider extends ServiceProvider
     {
         $this->plugin->loader->addAction('init', $this, 'registerPostType');
 
+        $this->plugin->loader->addAction('pre_get_posts', $this, 'filterAdminSearch');
+
         if (class_exists('\WP_CLI')) {
             \WP_CLI::add_command('owc-update-leges', [UpdatePrices::class, 'execute'], ['shortdesc' => 'Update lege prices when specified date has been reached.']);
         }
@@ -121,4 +123,39 @@ class LegesPostTypeServiceProvider extends ServiceProvider
 
         return register_extended_post_type($this->postType, $args, $labels);
     }
+
+	/**
+	 * If the search term equals a post ID, return only that post.
+	 */
+	public function filterAdminSearch(WP_Query $query)
+	{
+		if (!is_admin()) {
+			return;
+		}
+
+		if (($query->query['post_type'] ?? null) !== $this->postType) {
+			return;
+		}
+
+		$searchTerm = $query->query_vars['s'] ?? null;
+
+		if (!$searchTerm || !is_numeric($searchTerm)) {
+			return;
+		}
+
+		$searchTerm = (int)$searchTerm;
+
+		$postIds = get_posts([
+			'fields' => 'ids',
+			'post_type' => $this->postType,
+			'posts_per_page' => -1,
+		]);
+
+		if (!in_array($searchTerm, $postIds, true)) {
+			return;
+		}
+
+		$query->set('s', '');
+		$query->set('p', $searchTerm);
+	}
 }
