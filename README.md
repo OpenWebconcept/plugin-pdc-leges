@@ -18,17 +18,17 @@ To create an optimized and zipped build, run the `composer run package` command.
 
 
 ### Command
-Lege prices can be updated automatically via a WP_CLI command, this command should be registred in a cron-job. 
+Lege prices can be updated automatically via a WP_CLI command, this command should be registered in a cron-job.
 The full command name to use is 'wp owc-update-leges'.
 
 ##### Command 'wp owc-update-leges'
-A lege has 3 settings: 
+A lege has 3 settings:
 - Current lege price
 - New lege price
-- Date active new lege price 
+- Date active new lege price
 
 The command queries all the leges which have valid values in the 'New lege price' and 'Date active new lege price' setting fields.
-If the date in the 'Date active new lege price' settings field has been expired the 'Current lege price' settings field will be updated with the new price. If the update succeedes the 'New lege price' and 'Date active new lege price' setting fields will be cleared.
+If the date in the 'Date active new lege price' settings field has been expired the 'Current lege price' settings field will be updated with the new price. If the update succeeds the 'New lege price' and 'Date active new lege price' setting fields will be cleared.
 
 ### Filters & Actions
 
@@ -68,7 +68,7 @@ https://wordpress.org/plugins/loco-translate/
 
 This plugin provides an easy interface for custom translations and a way to store these files without them getting overwritten by updates.
 
-For instructions how to use the 'Loco Translate' plugin, we advice you to read the Beginners's guide page on their website: https://localise.biz/wordpress/plugin/beginners
+For instructions how to use the 'Loco Translate' plugin, we advise you to read the Beginner's guide page on their website: https://localise.biz/wordpress/plugin/beginners
 or start at the homepage: https://localise.biz/wordpress/plugin
 
 ### Running tests
