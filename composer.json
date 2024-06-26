@@ -9,9 +9,18 @@
     }
   ],
   "type": "wordpress-plugin",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:OpenWebconcept/plugin-pdc-base.git"
+    }
+  ],
   "require": {
     "php": "^7.4|^8.0",
-    "yahnis-elsts/plugin-update-checker": "^5.1"
+    "yahnis-elsts/plugin-update-checker": "^5.1",
+    "johnpbloch/wordpress": "6.*",
+    "wp-cli/wp-cli": "2.*",
+    "plugin/pdc-base": "3.*"
   },
   "require-dev": {
     "10up/wp_mock": "~0.4",
@@ -42,5 +51,10 @@
     "csfix": "./vendor/bin/phpcbf",
     "docs": "./vendor/bin/phpdoc -d ./src/Leges -t ./docs",
     "package": "chmod +x ./bin/package.sh && ./bin/package.sh"
+  },
+  "config": {
+    "allow-plugins": {
+      "johnpbloch/wordpress-core-installer": true
+    }
   }
 }
