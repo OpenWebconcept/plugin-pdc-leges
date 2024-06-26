@@ -9,7 +9,8 @@ class UpdatePrices
         $leges = $this->getLeges();
 
         if (empty($leges)) {
-            \WP_CLI::error('No leges found, stopping execution of this command.');
+            \WP_CLI::log('No updates required.');
+            return;
         }
 
         $this->update($leges);
