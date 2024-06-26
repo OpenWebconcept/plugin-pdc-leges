@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 1.2.3
+
+### Fix
+
+- Don't exit with an error code when there is nothing to update.
+
 ## Version 1.2.2
 
 ### Feat
