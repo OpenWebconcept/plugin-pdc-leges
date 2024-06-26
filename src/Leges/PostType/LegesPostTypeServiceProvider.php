@@ -38,7 +38,7 @@ class LegesPostTypeServiceProvider extends ServiceProvider
     {
         $this->plugin->loader->addAction('init', $this, 'registerPostType');
 
-		$this->plugin->loader->addFilter("ext-cpts/{$this->postType}/filter-query/{$this->prefix}_post_id", $this, 'filterByPostId', 10, 3);
+        $this->plugin->loader->addFilter("ext-cpts/{$this->postType}/filter-query/{$this->prefix}_post_id", $this, 'filterByPostId', 10, 3);
 
         if (class_exists('\WP_CLI')) {
             \WP_CLI::add_command('owc-update-leges', [UpdatePrices::class, 'execute'], ['shortdesc' => 'Update lege prices when specified date has been reached.']);
@@ -119,25 +119,25 @@ class LegesPostTypeServiceProvider extends ServiceProvider
                     'date_format' => 'd M Y'
                 ],
             ],
-			'admin_filters' => [
-				"{$this->prefix}_post_id" => [
-					'title' => 'ID',
-					'meta_search_key' => '', // Use the "meta_search_key" type in order to generate a text input
-				],
-			],
+            'admin_filters' => [
+                "{$this->prefix}_post_id" => [
+                    'title' => 'ID',
+                    'meta_search_key' => '', // Use the "meta_search_key" type in order to generate a text input
+                ],
+            ],
         ];
 
         return register_extended_post_type($this->postType, $args, $labels);
     }
 
-	public function filterByPostId($return, $query, $filter): array
-	{
-		$postId = trim($query["{$this->prefix}_post_id"] ?? '');
+    public function filterByPostId($return, $query, $filter): array
+    {
+        $postId = trim($query["{$this->prefix}_post_id"] ?? '');
 
-		if ($postId) {
-			$return['p'] = is_numeric($postId) ? (int)$postId : -1; // Non-numeric input should return no posts
-		}
+        if ($postId) {
+            $return['p'] = is_numeric($postId) ? (int)$postId : -1; // Non-numeric input should return no posts
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 }

@@ -53,7 +53,7 @@ class UpdatePrices
     public function shouldUpdate(int $postID): bool
     {
         $activeDate = \get_post_meta($postID, '_pdc-lege-active-date', true);
-        
+
         if (! \DateTime::createFromFormat('d-m-Y', $activeDate)) {
             \WP_CLI::warning(sprintf('Could not update lege with ID [%d], date is not valid.', $postID));
             return false;

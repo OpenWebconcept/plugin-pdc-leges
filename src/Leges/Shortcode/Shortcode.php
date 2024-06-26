@@ -105,7 +105,7 @@ class Shortcode
     {
         try {
             $dateActive = new \DateTime($dateActive);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
