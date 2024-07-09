@@ -1,30 +1,16 @@
 <?php
-/**
- * Provider which handles the registration of the shortcode generator.
- */
 
 namespace OWC\PDC\Leges\Shortcode;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
 
-/**
- * Provider which handles the registration of the shortcode generator.
- */
 class ShortcodeServiceProvider extends ServiceProvider
 {
-
     /**
      * Shortcode to be registered.
-     *
-     * @var string $shortcode
      */
-    protected static $shortcode = 'pdc::leges';
+    protected static string $shortcode = 'pdc::leges';
 
-    /**
-     * Register the shortcode.
-     *
-     * @return void
-     */
     public function register()
     {
         $shortcode = new Shortcode();
@@ -33,12 +19,8 @@ class ShortcodeServiceProvider extends ServiceProvider
 
     /**
      * The generation of the shortcode.
-     *
-     * @param null $id
-     *
-     * @return string
      */
-    public static function generateShortcode($id = null)
+    public static function generateShortcode(int $id = 0): string
     {
         $shortcode = sprintf('[%s id="%d"]', self::$shortcode, $id);
 

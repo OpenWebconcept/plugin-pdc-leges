@@ -2,6 +2,11 @@
 
 namespace OWC\PDC\Leges\PostType\Commands;
 
+use DateTime;
+use WP_CLI;
+use WP_Post;
+use WP_Query;
+
 class UpdatePrices
 {
     public function execute(): void
@@ -9,7 +14,8 @@ class UpdatePrices
         $leges = $this->getLeges();
 
         if (empty($leges)) {
-            \WP_CLI::log('No updates required.');
+            WP_CLI::log('No updates required.');
+
             return;
         }
 
@@ -18,8 +24,8 @@ class UpdatePrices
 
     protected function getLeges(): array
     {
-        $query = new \WP_Query([
-            'post_type'      => 'pdc-leges',
+        $query = new WP_Query([
+            'post_type' => 'pdc-leges',
             'posts_per_page' => '-1',
             'meta_query' => [
                 'relation' => 'AND',
@@ -32,8 +38,8 @@ class UpdatePrices
                     'key' => '_pdc-lege-active-date',
                     'value' => '',
                     'compare' => '!=',
-                ]
-            ]
+                ],
+            ],
         ]);
 
         return empty($query->posts) ? [] : $query->posts;
@@ -54,19 +60,20 @@ class UpdatePrices
     {
         $activeDate = \get_post_meta($postID, '_pdc-lege-active-date', true);
 
-        if (! \DateTime::createFromFormat('d-m-Y', $activeDate)) {
-            \WP_CLI::warning(sprintf('Could not update lege with ID [%d], date is not valid.', $postID));
+        if (! DateTime::createFromFormat('d-m-Y', $activeDate)) {
+            WP_CLI::warning(sprintf('Could not update lege with ID [%d], date is not valid.', $postID));
+
             return false;
         }
 
-        if (\DateTime::createFromFormat('d-m-Y', $activeDate) > new \DateTime()) {
+        if (DateTime::createFromFormat('d-m-Y', $activeDate) > new DateTime()) {
             return false;
         }
 
         return true;
     }
 
-    protected function updatePostMeta(\WP_Post $lege): void
+    protected function updatePostMeta(WP_Post $lege): void
     {
         $currentPrice = \get_post_meta($lege->ID, '_pdc-lege-price', true);
         $newPrice = \get_post_meta($lege->ID, '_pdc-lege-new-price', true);
@@ -76,7 +83,8 @@ class UpdatePrices
          * But what if someone cleares the value after the execution of the WP_Query.
          */
         if (empty($newPrice)) {
-            \WP_CLI::warning(sprintf('Could not update lege [%s], new price meta field is empty.', $lege->post_title));
+            WP_CLI::warning(sprintf('Could not update lege [%s], new price meta field is empty.', $lege->post_title));
+
             return;
         }
 
@@ -87,12 +95,13 @@ class UpdatePrices
          * If so updating will result in a false. This is not a reason to stop the current iteration.
          * If this is not the case something else went wrong, stop current iteration.
          */
-        if (!$updated && $currentPrice !== $newPrice) {
-            \WP_CLI::warning(sprintf('Could not update lege [%s].', $lege->post_title));
+        if (! $updated && $currentPrice !== $newPrice) {
+            WP_CLI::warning(sprintf('Could not update lege [%s].', $lege->post_title));
+
             return;
         }
 
-        \WP_CLI::success(sprintf('Lege [%s] has been updated.', $lege->post_title));
+        WP_CLI::success(sprintf('Lege [%s] has been updated.', $lege->post_title));
 
         \update_post_meta($lege->ID, '_pdc-lege-new-price', '');
         \update_post_meta($lege->ID, '_pdc-lege-active-date', '');

@@ -1,46 +1,31 @@
 <?php
-/**
- * Provider which adds QuickEdit possibilities.
- */
 
 namespace OWC\PDC\Leges\Admin\QuickEdit;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
-use \WP_Post;
+use WP_Post;
 
-/**
- * Provider which adds QuickEdit possibilities.
- */
 class QuickEditServiceProvider extends ServiceProvider
 {
-
     /**
      * Prefix for the quickedit.
-     *
-     * @var string $prefix
      */
-    protected $prefix = '_pdc-lege';
+    protected string $prefix = '_pdc-lege';
 
     /**
      * Name of posttype for the quickedit.
-     *
-     * @var string $postType
      */
-    protected $postType = 'pdc-leges';
+    protected string $postType = 'pdc-leges';
 
     /**
      * Array holding all the quickedit handlers.
-     *
-     * @var array $quickEditHandlers
      */
-    protected $quickEditHandlers = [];
+    protected array $quickEditHandlers = [];
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->setQuickEditHandlers();
 
@@ -52,11 +37,6 @@ class QuickEditServiceProvider extends ServiceProvider
 
     /**
      * Adds the handlers.
-     *
-     * @param array $actions
-     * @param  WP_Post     $post
-     *
-     * @return array
      */
     public function addRowActions(array $actions, WP_Post $post): array
     {
@@ -68,7 +48,7 @@ class QuickEditServiceProvider extends ServiceProvider
             }
 
             if (isset($actions['inline hide-if-no-js'])) {
-                $newAttribute                    = sprintf('data-%s="%s"', esc_attr($key), esc_attr($foundValue));
+                $newAttribute = sprintf('data-%s="%s"', esc_attr($key), esc_attr($foundValue));
                 $actions['inline hide-if-no-js'] = str_replace('class=', "$newAttribute class=", $actions['inline hide-if-no-js']);
             }
         }
@@ -78,13 +58,11 @@ class QuickEditServiceProvider extends ServiceProvider
 
     /**
      * Render javascript inline for admin only.
-     *
-     * @return mixed
      */
-    public function renderFooterScript()
+    public function renderFooterScript(): void
     {
         $current_screen = get_current_screen();
-        if ($current_screen->id !== 'edit-' . $this->postType || $current_screen->post_type !== $this->postType) {
+        if ('edit-' . $this->postType !== $current_screen->id || $current_screen->post_type !== $this->postType) {
             return;
         }
 
@@ -127,13 +105,8 @@ class QuickEditServiceProvider extends ServiceProvider
 
     /**
      * Adds the quickedit handlers.
-     *
-     * @param $columnName
-     * @param $postType
-     *
-     * @return mixed
      */
-    public function registerQuickEditHandler($columnName, $postType)
+    public function registerQuickEditHandler(string $columnName, string $postType): void
     {
         if (! in_array($columnName, array_keys($this->quickEditHandlers))) {
             return;
@@ -162,93 +135,77 @@ class QuickEditServiceProvider extends ServiceProvider
 
     /**
      * Adds active date to quickedit handler.
-     *
-     * @param $item
-     *
-     * @return mixed
      */
-    protected function activeDate($item)
+    protected function activeDate(array $item): void
     {
         $value = get_post_meta(get_the_ID(), $item['metaboxKey'], true); ?>
-<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
-    <span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
-    <span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
-</label>
+
+		<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
+			<span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
+			<span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
+		</label>
         <?php
     }
 
     /**
      * Adds price to quickedit handlers.
-     *
-     * @param $item
-     *
-     * @return mixed
      */
-    protected function price($item)
+    protected function price(array $item): void
     {
         $value = get_post_meta(get_the_ID(), $item['metaboxKey'], true); ?>
-<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
-    <span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
-    <span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
-</label>
+
+		<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
+			<span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
+			<span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
+		</label>
         <?php
     }
 
     /**
      * Adds newPrice to quickedit handlers.
-     *
-     * @param $item
-     *
-     * @return mixed
      */
-    protected function newPrice($item)
+    protected function newPrice(array $item): void
     {
         $value = get_post_meta(get_the_ID(), $item['metaboxKey'], true); ?>
-<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
-    <span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
-    <span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
-</label>
+
+		<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
+			<span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
+			<span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
+		</label>
         <?php
     }
 
     /**
      * Returns the handlers for the quick edit.
-     *
-     * @return array
      */
-    public function setQuickEditHandlers()
+    public function setQuickEditHandlers(): array
     {
         return $this->quickEditHandlers = [
-            'new-price'   => [
+            'new-price' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'new-price'),
-                'label'      => __('New price', 'pdc-leges')
+                'label' => __('New price', 'pdc-leges'),
             ],
-            'price'       => [
+            'price' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'price'),
-                'label'      => __('Price', 'pdc-leges')
+                'label' => __('Price', 'pdc-leges'),
             ],
             'active-date' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'active-date'),
-                'label'      => __('Date new lege active', 'pdc-leges')
-            ]
+                'label' => __('Date new lege active', 'pdc-leges'),
+            ],
         ];
     }
 
     /**
      * Handles the save post handler.
-     *
-     * @param $post_id
-     * @param $post
-     *
-     * @return void
      */
-    public function registerSavePostHandler($post_id, $post)
+    public function registerSavePostHandler(int $postID, WP_Post $post): void
     {
-        if (wp_is_post_revision($post_id)) {
+        if (wp_is_post_revision($postID)) {
             return;
         }
 
-        if (wp_is_post_autosave($post_id)) {
+        if (wp_is_post_autosave($postID)) {
             return;
         }
 
@@ -258,24 +215,22 @@ class QuickEditServiceProvider extends ServiceProvider
         }
 
         // does this user have permissions?
-        if (! current_user_can('edit_post', $post_id)) {
+        if (! current_user_can('edit_post', $postID)) {
             return;
         }
 
         foreach ($this->getQuickEditHandlers() as $key => $handler) {
             // update!
             if (isset($_POST["{$this->prefix}-{$key}"])) {
-                update_post_meta($post_id, "{$this->prefix}-{$key}", $_POST["{$this->prefix}-{$key}"]);
+                update_post_meta($postID, "{$this->prefix}-{$key}", $_POST["{$this->prefix}-{$key}"]);
             }
         }
     }
 
     /**
      * Gets the registered quickedit handlers.
-     *
-     * @return array
      */
-    private function getQuickEditHandlers()
+    private function getQuickEditHandlers(): array
     {
         return $this->quickEditHandlers;
     }

@@ -1,22 +1,16 @@
 <?php
 
-/**
- * Handles shortcode generation.
- */
-
 namespace OWC\PDC\Leges\Shortcode;
 
-/**
- * Handles shortcode generation.
- */
+use DateTime;
+use Exception;
+
 class Shortcode
 {
     /**
      * Default fields for leges.
-     *
-     * @var array $defaults
      */
-    protected $defaults = [
+    protected array $defaults = [
         '_pdc-lege-active-date' => null,
         '_pdc-lege-price' => null,
         '_pdc-lege-new-price' => null,
@@ -25,17 +19,17 @@ class Shortcode
     /**
      * Add the shortcode rendering.
      */
-    public function addShortcode($attributes): string
+    public function addShortcode(array $attributes): string
     {
         $attributes = shortcode_atts([
-            'id' => 0
+            'id' => 0,
         ], $attributes);
 
-        if (! isset($attributes['id']) || empty($attributes['id']) || ($attributes['id'] < 1)) {
+        if (! isset($attributes['id']) || empty($attributes['id']) || (1 > $attributes['id'])) {
             return false;
         }
 
-        if (! $this->postExists($attributes['id'])) {
+        if (! $this->postExists((int) $attributes['id'])) {
             return false;
         }
 
@@ -59,24 +53,16 @@ class Shortcode
     /**
      * Determines if a post, identified by the specified ID, exist
      * within the WordPress database.
-     *
-     * @param    int $id The ID of the post to check
-     *
-     * @return   bool          True if the post exists; otherwise, false.
      */
-    protected function postExists($id)
+    protected function postExists(int $id): bool
     {
         return get_post_status($id);
     }
 
     /**
      * Merges the settings with defaults, to always have proper settings.
-     *
-     * @param $metaData
-     *
-     * @return array
      */
-    private function mergeWithDefaults($metaData)
+    private function mergeWithDefaults(array $metaData): array
     {
         $output = [];
         foreach ($metaData as $key => $data) {
@@ -84,7 +70,7 @@ class Shortcode
                 continue;
             }
 
-            $output[$key] = (!is_array($data)) ? $data : $data[0];
+            $output[$key] = (! is_array($data)) ? $data : $data[0];
         }
 
         return $output;
@@ -104,11 +90,11 @@ class Shortcode
     private function dateIsNow($dateActive): bool
     {
         try {
-            $dateActive = new \DateTime($dateActive);
-        } catch (\Exception $e) {
+            $dateActive = new DateTime($dateActive);
+        } catch (Exception $e) {
             return false;
         }
 
-        return $dateActive <= new \DateTime('now');
+        return $dateActive <= new DateTime('now');
     }
 }

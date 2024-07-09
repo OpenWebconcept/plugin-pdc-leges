@@ -16,16 +16,12 @@ class Plugin extends BasePlugin
 {
     /**
      * Name of the plugin.
-     *
-     * @const string NAME
      */
     const NAME = 'pdc-leges';
 
     /**
      * Version of the plugin.
      * Used for setting versions of enqueue scripts and styles.
-     *
-     * @const string VERSION
      */
     const VERSION = '1.2.5';
 
