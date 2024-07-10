@@ -19,7 +19,7 @@ use OWC\PDC\Leges\Foundation\Plugin;
 /**
  * If this file is called directly, abort.
  */
-if (!defined('WPINC')) {
+if (! defined('WPINC')) {
     die;
 }
 
@@ -57,3 +57,6 @@ add_action('plugins_loaded', function () {
 
     $plugin = (new Plugin(__DIR__))->boot();
 }, 10);
+
+include_once plugin_dir_path(__FILE__) . 'deactivate.php';
+register_deactivation_hook(__FILE__, 'deactivate');

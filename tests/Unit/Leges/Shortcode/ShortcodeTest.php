@@ -54,23 +54,26 @@ class TestShortcode extends TestCase
     public function shortcode_is_rendered_incorrectly_when_id_is_not_set()
     {
         \WP_Mock::userFunction('shortcode_atts', [
-            'args' => null,
-            'return' => null,
+            'args' => [
+                ['id' => 0], // Default attributes
+                ['id' => null], // Passed attributes
+            ],
+            'return' => ['id' => 0], // Result after merging
         ]);
 
         \WP_Mock::userFunction(
             'get_post_status',
             [
-            'args' => $this->postID,
-            'return' => true,
-        ]
+                'args' => $this->postID,
+                'return' => true,
+            ]
         );
 
         $attributes = [
             'id' => null,
         ];
 
-        $actual = $this->service->addShortcode($attributes);
+        $actual = (bool) $this->service->addShortcode($attributes);
 
         $this->assertFalse($actual);
     }
@@ -78,23 +81,19 @@ class TestShortcode extends TestCase
     /** @test */
     public function shortcode_is_rendered_incorrectly_when_post_does_not_exist()
     {
-        \WP_Mock::passthruFunction('shortcode_atts', [
-            'return_arg' => 1,
-        ]);
-
         \WP_Mock::userFunction(
             'get_post_status',
             [
-            'args' => $this->postID,
-            'return' => false,
-        ]
+                'args' => $this->postID,
+                'return' => false,
+            ]
         );
 
         $attributes = [
             'id' => $this->postID,
         ];
 
-        $shortcode = $this->service->addShortcode($attributes);
+        $shortcode = (bool) $this->service->addShortcode($attributes);
 
         $this->assertFalse($shortcode);
     }
@@ -109,9 +108,9 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_post_status',
             [
-            'args' => $this->postID,
-            'return' => true,
-        ]
+                'args' => $this->postID,
+                'return' => true,
+            ]
         );
 
         \WP_Mock::passthruFunction('absint', [
@@ -121,16 +120,16 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_metadata',
             [
-            'args' => [
-                'post',
-                $this->postID,
-            ],
-            'return' => [
-                '_pdc-lege-active-date' => null,
-                '_pdc-lege-price' => 10,
-                '_pdc-lege-new-price' => null,
-            ],
-        ]
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => 10,
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
         );
 
         $attributes = [
@@ -153,9 +152,9 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_post_status',
             [
-            'args' => $this->postID,
-            'return' => true,
-        ]
+                'args' => $this->postID,
+                'return' => true,
+            ]
         );
 
         \WP_Mock::passthruFunction('absint', [
@@ -165,16 +164,16 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_metadata',
             [
-            'args' => [
-                'post',
-                $this->postID,
-            ],
-            'return' => [
-                '_pdc-lege-price' => 10,
-                '_pdc-lege-new-price' => 20,
-                '_pdc-lege-active-date' => '23-05-3000',
-            ],
-        ]
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-price' => 10,
+                    '_pdc-lege-new-price' => 20,
+                    '_pdc-lege-active-date' => '23-05-3000',
+                ],
+            ]
         );
 
         $attributes = [
@@ -197,9 +196,9 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_post_status',
             [
-            'args' => $this->postID,
-            'return' => true,
-        ]
+                'args' => $this->postID,
+                'return' => true,
+            ]
         );
 
         \WP_Mock::passthruFunction('absint', [
@@ -209,17 +208,17 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_metadata',
             [
-            'args' => [
-                'post',
-                $this->postID,
-            ],
-            'return' => [
-                'key' => 'value',
-                '_pdc-lege-price' => 10,
-                '_pdc-lege-new-price' => null,
-                '_pdc-lege-active-date' => '06-05-2018',
-            ],
-        ]
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    'key' => 'value',
+                    '_pdc-lege-price' => 10,
+                    '_pdc-lege-new-price' => null,
+                    '_pdc-lege-active-date' => '06-05-2018',
+                ],
+            ]
         );
 
         $attributes = [
@@ -242,9 +241,9 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_post_status',
             [
-            'args' => $this->postID,
-            'return' => true,
-        ]
+                'args' => $this->postID,
+                'return' => true,
+            ]
         );
 
         \WP_Mock::passthruFunction('absint', [
@@ -254,16 +253,16 @@ class TestShortcode extends TestCase
         \WP_Mock::userFunction(
             'get_metadata',
             [
-            'args' => [
-                'post',
-                $this->postID,
-            ],
-            'return' => [
-                '_pdc-lege-price' => 10,
-                '_pdc-lege-new-price' => 20,
-                '_pdc-lege-active-date' => '06-05-2018',
-            ],
-        ]
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-price' => 10,
+                    '_pdc-lege-new-price' => 20,
+                    '_pdc-lege-active-date' => '06-05-2018',
+                ],
+            ]
         );
 
         $attributes = [

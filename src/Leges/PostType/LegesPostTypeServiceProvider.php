@@ -4,9 +4,7 @@ namespace OWC\PDC\Leges\PostType;
 
 use Extended_CPT;
 use OWC\PDC\Base\Foundation\ServiceProvider;
-use OWC\PDC\Leges\PostType\Commands\UpdatePrices;
 use OWC\PDC\Leges\Shortcode\ShortcodeServiceProvider;
-use WP_CLI;
 
 class LegesPostTypeServiceProvider extends ServiceProvider
 {
@@ -17,10 +15,6 @@ class LegesPostTypeServiceProvider extends ServiceProvider
     {
         $this->plugin->loader->addAction('init', $this, 'registerPostType');
         $this->plugin->loader->addFilter("ext-cpts/{$this->postType}/filter-query/{$this->prefix}_post_id", $this, 'filterByPostId', 10, 3);
-
-        if (class_exists('\WP_CLI')) {
-            WP_CLI::add_command('owc-update-leges', [UpdatePrices::class, 'execute'], ['shortdesc' => 'Update lege prices when specified date has been reached.']);
-        }
     }
 
     public function registerPostType(): Extended_CPT

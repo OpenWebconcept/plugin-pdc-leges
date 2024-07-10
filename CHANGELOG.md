@@ -1,94 +1,105 @@
 # CHANGELOG
 
-## Version 1.2.5
+## [2.0.0]
 
-- No changes. Corrects version and git tag which were out of sync.
+### Added
 
-## Version 1.2.4
+- Replaced commands with WP Cron Events, reducing the need for server cron job configuration.
+- Updated `README.md`.
 
-- No changes. Corrects version and git tag which were out of sync.
-
-## Version 1.2.3
-
-### Fix
-
-- Don't exit with an error code when there is nothing to update.
-
-## Version 1.2.2
-
-### Feat
-
--   Add search box to find leges items by ID
-
-## version 1.2.1
-
-### Fix
-
--   Missing PHP extension when running GH workflows
-
-## Version 1.2.0
-
-### Feat
-
--   Updates can now be provided through the Admin interface
-
-## Version 1.1.4
-
-### Chore
-
--   Replaced Composer plugin dependency check with runtime check.
-
-## version 1.1.3
-
-### Fix
-
--   Validate datActive in dateIsNow inside Shortcode class
-
-## version 1.1.2
-
-### Chore
-
--   Update dependencies + reference pdc-base plugin from BitBucket to GitHub
-
-## version 1.1.1
-
-### Fix
-
--   (fix): new lege price date comparison
-
-## version 1.1.0
-
-### Feature
-
--   (feat): update lege prices via WP_CLI command
-
-## Version 1.0.4
+## [1.2.5]
 
 ### Changed
 
--   Composer dependency on pdc-base plug-in from ^2.0.0 to ^3.0.0
+- No changes. Corrects version and git tag which were out of sync.
 
-## Version 1.0.3
+## [1.2.4]
 
-### Fix:
+### Changed
 
--   WordPress 5.3 has some class and style changes. Due to that, the quickedit did not work correctly
+- No changes. Corrects version and git tag which were out of sync.
 
-## Version 1.0.2
+## [1.2.3]
 
-### Feature:
+### Fixed
 
--   (feat): adding of admin col
+- Avoid exiting with an error code when there is nothing to update.
 
-## Version 1.0.1
+## [1.2.2]
 
-### Fix:
+### Added
 
--   (fix): check if required file for `is_plugin_active` is already loaded, otherwise load it. Props @Jasper Heidebrink
+- Added search box to find leges items by ID.
 
-## Version 1.0.0
+## [1.2.1]
 
-### Features:
+### Fixed
 
--   Initial release
--   Add docs
+- Missing PHP extension when running GH workflows.
+
+## [1.2.0]
+
+### Added
+
+- Updates can now be provided through the Admin interface.
+
+## [1.1.4]
+
+### Changed
+
+- Replaced Composer plugin dependency check with runtime check.
+
+## [1.1.3]
+
+### Fixed
+
+- Validate `datActive` in `dateIsNow` inside Shortcode class.
+
+## [1.1.2]
+
+### Changed
+
+- Update dependencies and reference pdc-base plugin from BitBucket to GitHub.
+
+## [1.1.1]
+
+### Fixed
+
+- Fix new lege price date comparison.
+
+## [1.1.0]
+
+### Added
+
+- Update lege prices via WP_CLI command.
+
+## [1.0.4]
+
+### Changed
+
+- Composer dependency on pdc-base plug-in updated from `^2.0.0` to `^3.0.0`.
+
+## [1.0.3]
+
+### Fixed
+
+- WordPress 5.3 class and style changes caused issues with quickedit functionality.
+
+## [1.0.2]
+
+### Added
+
+- Adding of admin column.
+
+## [1.0.1]
+
+### Fixed
+
+- Check if required file for `is_plugin_active` is already loaded, otherwise load it. Props @Jasper Heidebrink.
+
+## [1.0.0]
+
+### Added
+
+- Initial release.
+- Added documentation.
