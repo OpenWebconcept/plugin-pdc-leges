@@ -10,6 +10,9 @@ return [
          */
         OWC\PDC\Leges\PostType\LegesPostTypeServiceProvider::class,
         OWC\PDC\Leges\Shortcode\ShortcodeServiceProvider::class,
+        OWC\PDC\Leges\RestAPI\RestAPIServiceProvider::class,
+		OWC\PDC\Leges\WPCron\WPCronServiceProvider::class,
+
         /**
          * Providers specific to the admin.
          */

@@ -4,6 +4,7 @@
 
 ### Added
 
+- Register REST endpoints.
 - Replaced commands with WP Cron Events, reducing the need for server cron job configuration.
 - Updated `README.md`.
 
