@@ -35,9 +35,9 @@ class LegesController
      */
     public function getLege(WP_REST_Request $request)
     {
-        $id = $request->get_param('id');
+        $id = $this->handleRequestParam($request, 'id', 'int', 0);
 
-        if (empty($id) || ! is_numeric($id)) {
+        if (empty($id)) {
             return new WP_Error('bad_request', 'Invalid ID', [
                 'status' => 400,
             ]);
@@ -59,9 +59,9 @@ class LegesController
      */
     public function getLegeBySlug(WP_REST_Request $request)
     {
-        $slug = $request->get_param('slug');
+        $slug = $this->handleRequestParam($request, 'slug', 'string', '');
 
-        if (empty($slug) || ! is_string($slug)) {
+        if (strlen($slug) === 0) {
             return new WP_Error('bad_request', 'Invalid slug', [
                 'status' => 400,
             ]);
@@ -85,7 +85,7 @@ class LegesController
     {
         $perPage = $query->get('posts_per_page');
         $page = $query->get('paged');
-        $page = 0 == $page || -1 == $perPage ? 1 : $page; // If $perPage = -1, $page should be 1.
+        $page = $page = (0 == $page || -1 == $perPage) ? 1 : $page; // If $perPage = -1, $page should be 1.
 
         return array_merge([
             'data' => $data,

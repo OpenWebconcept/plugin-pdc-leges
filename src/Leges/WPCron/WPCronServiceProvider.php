@@ -3,7 +3,6 @@
 namespace OWC\PDC\Leges\WPCron;
 
 use DateTime;
-use DateTimeZone;
 use OWC\PDC\Base\Foundation\ServiceProvider;
 use OWC\PDC\Leges\WPCron\Events\UpdateLegesPrices;
 
@@ -20,7 +19,7 @@ class WPCronServiceProvider extends ServiceProvider
 
     protected function timeToExecute(): int
     {
-        $currentDateTime = new DateTime('now', new DateTimeZone(wp_timezone_string()));
+        $currentDateTime = new DateTime('now', wp_timezone());
         $tomorrowDateTime = $currentDateTime->modify('+1 day');
         $tomorrowDateTime->setTime(6, 0, 0);
 

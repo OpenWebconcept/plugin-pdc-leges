@@ -8,7 +8,7 @@ use WP_Post;
 class LegesRepository extends AbstractRepository
 {
     /**
-     * Posttype definition
+     * Posttype definition.
      */
     protected string $posttype = 'pdc-leges';
 

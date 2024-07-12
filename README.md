@@ -22,6 +22,7 @@ To create an optimized and zipped build, run the `composer run package` command.
 ### Commands
 
 Since version 2.0.0, the commands have been replaced by WP Cron Events. This change requires less configuration on your server by eliminating the need to add server cron jobs. Just activate the plugin and you're all set.
+Remember to remove any previously configured cron jobs from your web server, as they have been deprecated since version 2.0.0.
 
 ### WP Cron Events
 

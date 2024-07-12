@@ -3,9 +3,9 @@
 namespace OWC\PDC\Leges\WPCron\Events;
 
 use DateTime;
+use OWC\PDC\Leges\Repositories\LegesRepository;
 use OWC\PDC\Leges\WPCron\Contracts\AbstractEvent;
 use WP_Post;
-use WP_Query;
 
 class UpdateLegesPrices extends AbstractEvent
 {
@@ -36,8 +36,8 @@ class UpdateLegesPrices extends AbstractEvent
      */
     protected function getLeges(): array
     {
-        $query = new WP_Query([
-            'post_type' => 'pdc-leges',
+        $repository = new LegesRepository();
+        $repository->addQueryArguments([
             'posts_per_page' => -1,
             'meta_query' => [
                 'relation' => 'AND',
@@ -54,7 +54,7 @@ class UpdateLegesPrices extends AbstractEvent
             ],
         ]);
 
-        return $query->posts ?: [];
+        return $repository->all();
     }
 
     /**
@@ -109,6 +109,11 @@ class UpdateLegesPrices extends AbstractEvent
 
         $updated = update_post_meta($lege->ID, self::META_PRICE, $newPrice);
 
+		/**
+		 * Check if the previous and new prices are the same.
+		 * If they are, updating will return false, but this is not a reason to stop the current iteration.
+		 * If they are not the same, something else went wrong, so stop the current iteration.
+		 */
         if (! $updated && $currentPrice !== $newPrice) {
             $this->logError(sprintf('could not update lege [%s].', $lege->post_title));
 
