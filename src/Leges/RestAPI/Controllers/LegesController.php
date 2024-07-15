@@ -20,8 +20,8 @@ class LegesController
     public function getLeges(WP_REST_Request $request): WP_REST_Response
     {
         $this->repository->addQueryArguments([
-            'posts_per_page' => $this->handleRequestParam($request, 'limit', 'int', 10),
-            'paged' => $this->handleRequestParam($request, 'page', 'int', 1),
+            'posts_per_page' => $request->get_param('limit'),
+            'paged' => $request->get_param('page'),
         ]);
 
         $data = $this->repository->all();
@@ -35,14 +35,7 @@ class LegesController
      */
     public function getLege(WP_REST_Request $request)
     {
-        $id = $this->handleRequestParam($request, 'id', 'int', 0);
-
-        if (empty($id)) {
-            return new WP_Error('bad_request', 'Invalid ID', [
-                'status' => 400,
-            ]);
-        }
-
+        $id = $request->get_param('id');
         $data = $this->repository->find($id);
 
         if (! $data) {
@@ -59,14 +52,7 @@ class LegesController
      */
     public function getLegeBySlug(WP_REST_Request $request)
     {
-        $slug = $this->handleRequestParam($request, 'slug', 'string', '');
-
-        if (strlen($slug) === 0) {
-            return new WP_Error('bad_request', 'Invalid slug', [
-                'status' => 400,
-            ]);
-        }
-
+		$slug = $request->get_param('slug');
         $data = $this->repository->findBySlug($slug);
 
         if (! $data) {
@@ -96,33 +82,5 @@ class LegesController
                 'limit' => $perPage,
             ],
         ]);
-    }
-
-    /**
-     * Handle and sanitize a request parameter to make sure the value is of the expected type.
-     *
-     * @return mixed
-     */
-    public function handleRequestParam(WP_REST_Request $request, string $param, string $type, $default = null)
-    {
-        $value = $request->get_param($param);
-
-        if (null === $value) {
-            return gettype($default) === $type ? $default : null;
-        }
-
-        switch ($type) {
-            case 'int':
-                return (int) $value;
-            case 'float':
-                return (float) $value;
-            case 'bool':
-                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
-            case 'array':
-                return is_array($value) ? $value : explode(',', $value);
-            case 'string':
-            default:
-                return (string) $value;
-        }
     }
 }

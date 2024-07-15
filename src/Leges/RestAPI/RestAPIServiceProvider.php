@@ -21,18 +21,46 @@ class RestAPIServiceProvider extends ServiceProvider
             'methods' => WP_REST_Server::READABLE,
             'callback' => [new LegesController, 'getLeges'],
             'permission_callback' => '__return_true',
+			'args' => [
+				'limit' => [
+					'description' => 'Number of posts per page.',
+					'type' => 'integer',
+					'default' => 10,
+					'minimum' => -1,
+					'maximum' => 100,
+				],
+				'page' => [
+					'description' => 'Current page number.',
+					'type' => 'integer',
+					'default' => 1
+				]
+			]
         ]);
 
         register_rest_route($this->namespace, 'leges/(?P<id>\d+)', [
             'methods' => WP_REST_Server::READABLE,
             'callback' => [new LegesController, 'getLege'],
             'permission_callback' => '__return_true',
+			'args' => [
+				'id' => [
+					'description' => 'ID of the post.',
+					'type' => 'integer',
+					'default' => 0
+        		]
+			]
         ]);
 
         register_rest_route($this->namespace, 'leges/(?P<slug>[\w-]+)', [
             'methods' => WP_REST_Server::READABLE,
             'callback' => [new LegesController, 'getLegeBySlug'],
             'permission_callback' => '__return_true',
+			'args' => [
+				'slug' => [
+					'description' => 'Slug of the post.',
+					'type' => 'string',
+					'default' => ''
+				]
+			]
         ]);
     }
 }
