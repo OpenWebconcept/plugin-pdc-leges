@@ -11,6 +11,10 @@
   "type": "wordpress-plugin",
   "repositories": [
     {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
       "type": "vcs",
       "url": "git@github.com:OpenWebconcept/plugin-pdc-base.git"
     }
@@ -19,8 +23,9 @@
     "php": "^7.4|^8.0",
     "yahnis-elsts/plugin-update-checker": "^5.1",
     "johnpbloch/wordpress": "6.*",
+    "plugin/pdc-base": "3.*",
     "wp-cli/wp-cli": "2.*",
-    "plugin/pdc-base": "3.*"
+    "wpackagist-plugin/cmb2": "2.11.*"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.0",
@@ -52,7 +57,8 @@
   },
   "config": {
     "allow-plugins": {
-      "johnpbloch/wordpress-core-installer": true
+      "johnpbloch/wordpress-core-installer": true,
+      "composer/installers": true
     }
   }
 }

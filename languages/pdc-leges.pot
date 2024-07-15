@@ -1,150 +1,156 @@
-# Loco Gettext template
-#, fuzzy
+# Copyright (C) 2024 Yard Internet
+# This file is distributed under the EUPL 1.2.
 msgid ""
 msgstr ""
-"Project-Id-Version: PDC Leges\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-21 16:15+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: \n"
-"Language-Team: Yard Internet <inf@yard.nl>\n"
+"Project-Id-Version: PDC Leges 2.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pdc-leges\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
-"POT-Revision-Date: Fri Nov 27 2015 13:26:26 GMT+0100 (W. Europe Standard Time)\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../src\n"
-"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;__:1;"
-"_e:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;_x:1,2c;"
-"_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;esc_attr__:1;"
-"esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;esc_html_x:1,2c\n"
-"X-Generator: Poedit 3.1.1\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: ../assets\n"
-"X-Poedit-SearchPathExcluded-1: ../node_modules\n"
-"X-Poedit-SearchPathExcluded-2: ../vendor\n"
+"POT-Creation-Date: 2024-07-15T12:01:03+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.9.0\n"
+"X-Domain: pdc-leges\n"
 
-#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:224
+#. Plugin Name of the plugin
+#. Description of the plugin
+msgid "PDC Leges"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.openwebconcept.nl"
+msgstr ""
+
+#. Author of the plugin
+msgid "Yard Internet"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.yardinternet.nl/"
+msgstr ""
+
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:186
 msgid "New price"
 msgstr ""
 
-#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:228
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:190
 msgid "Price"
 msgstr ""
 
-#: Leges/Admin/QuickEdit/QuickEditServiceProvider.php:232
-#: Leges/Metabox/MetaboxServiceProvider.php:60
-#: Leges/PostType/LegesPostTypeServiceProvider.php:99
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:194
+#: src/Leges/Metabox/MetaboxServiceProvider.php:42
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:68
 msgid "Date new lege active"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:40
+#: src/Leges/Metabox/MetaboxServiceProvider.php:20
 msgid "Lege settings"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:48
+#: src/Leges/Metabox/MetaboxServiceProvider.php:28
 msgid "Lege price"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:49
-#: Leges/Metabox/MetaboxServiceProvider.php:55
+#: src/Leges/Metabox/MetaboxServiceProvider.php:29
+#: src/Leges/Metabox/MetaboxServiceProvider.php:36
 msgid "Price in &euro;"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:54
+#: src/Leges/Metabox/MetaboxServiceProvider.php:35
 msgid "Lege new price"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:63
+#: src/Leges/Metabox/MetaboxServiceProvider.php:47
 msgid "dd-mm-yy"
 msgstr ""
 
-#: Leges/Metabox/MetaboxServiceProvider.php:70
+#: src/Leges/Metabox/MetaboxServiceProvider.php:54
 msgid "(dd-mm-yy)"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:58
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:27
 msgctxt "post type general name"
 msgid "Leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:59
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:28
 msgctxt "post type singular name"
 msgid "Lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:60
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:29
 msgctxt "admin menu"
 msgid "Leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:61
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:30
 msgctxt "add new on admin bar"
 msgid "Leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:62
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:31
 msgctxt "lege"
 msgid "Add new lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:63
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:32
 msgid "Add new lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:64
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:33
 msgid "New lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:65
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:34
 msgid "Edit lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:66
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:35
 msgid "View lege"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:67
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:36
 msgid "All leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:68
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:37
 msgid "Search leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:69
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:38
 msgid "Parent leges:"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:70
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:39
 msgid "No leges found."
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:71
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:40
 msgid "No leges found in Trash."
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:76
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:45
 msgid "PDC leges"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:91
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:60
 msgid "Lege price (in &euro;)"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:95
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:64
 msgid "Lege new price (in &euro;)"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:104
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:73
 msgid "Lege shortcode"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:110
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:79
 msgid "Published"
 msgstr ""
 
-#: Leges/PostType/LegesPostTypeServiceProvider.php:115
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:84
 msgid "Modified"
 msgstr ""
