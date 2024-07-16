@@ -1,0 +1,25 @@
+{
+	"name": "owc-pdc-leges",
+	"version": "2.1.0",
+	"description": "PDC Leges Plugin",
+	"author": "Yard | Digital Agency",
+	"license": "MIT License",
+	"lint-staged": {
+		"src/**/*.php": [
+			"composer run format"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "npx lint-staged"
+		}
+  },
+	"main": "build/index.js",
+	"devDependencies": {
+		"husky": "^9.0.11",
+		"lint-staged": "^15.2.7"
+	},
+	"scripts": {
+		"prepare": "husky"
+	}
+}

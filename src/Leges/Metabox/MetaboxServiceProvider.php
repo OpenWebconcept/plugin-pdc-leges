@@ -16,32 +16,32 @@ class MetaboxServiceProvider extends ServiceProvider
         $prefix = '_pdc-lege';
 
         $cmb = new_cmb2_box([
-            'id'            => 'pdc_leges',
-            'title'         => __('Lege settings', 'pdc-leges'),
-            'object_types'  => ['pdc-leges'],
-            'context'       => 'normal',
-            'priority'      => 'high',
-            'show_names'    => true
+            'id' => 'pdc_leges',
+            'title' => __('Lege settings', 'pdc-leges'),
+            'object_types' => ['pdc-leges'],
+            'context' => 'normal',
+            'priority' => 'high',
+            'show_names' => true,
         ]);
 
         $cmb->add_field([
             'name' => __('Lege price', 'pdc-leges'),
             'desc' => __('Price in &euro;', 'pdc-leges'),
-            'id'   => "{$prefix}-price",
+            'id' => "{$prefix}-price",
             'type' => 'text',
         ]);
 
         $cmb->add_field([
             'name' => __('Lege new price', 'pdc-leges'),
             'desc' => __('Price in &euro;', 'pdc-leges'),
-            'id'   => "{$prefix}-new-price",
+            'id' => "{$prefix}-new-price",
             'type' => 'text',
         ]);
 
         $cmb->add_field([
-            'name'       => esc_html__('Date new lege active', 'pdc-leges'),
-            'id'         => "{$prefix}-active-date",
-            'type'       => 'text_date',
+            'name' => esc_html__('Date new lege active', 'pdc-leges'),
+            'id' => "{$prefix}-active-date",
+            'type' => 'text_date',
             'date_format' => 'd-m-Y',
             'attributes' => [
                 'data-date-format' => esc_html__('dd-mm-yy', 'pdc-leges'),

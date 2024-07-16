@@ -15,9 +15,24 @@
 To contribute to this project, no dependencies are required. However, you will need to download [Composer](https://getcomposer.org/) to run tests or create an optimized build of the plugin.
 
 1. Clone this repository to your machine and/or WordPress installation
-2. Optionally use Composer (`composer install`) to install the dev dependencies
+2. Use Composer (`composer install`) to install the dev dependencies
+3. Use NPM (`npm install`) to install de dev dependencies (node version defined in [.nvmrc](.nvmrc))
 
 To create an optimized and zipped build, run the `composer run package` command. This requires `Composer`, `rsync` and `zip` to run.
+
+##### Husky
+
+We use [Husky](https://github.com/typicode/husky) to manage our Git hooks. Husky helps to ensure that code quality is maintained by running scripts before certain Git actions, such as commits.
+
+After you run `npm install`, Husky is automatically configured and ready to use. Before each commit, Husky will automatically run the `composer run format` command to ensure that your code is properly formatted. This helps maintain consistent code style and quality across the project.
+
+To summarize:
+
+1. **Automatic Setup:** Husky is set up automatically when you run `npm install`.
+2. **Pre-Commit Hook:** Before committing, Husky runs `composer run format` to format the code.
+3. **Ensures Code Quality:** This pre-commit hook helps maintain consistent code style and quality.
+
+By using Husky, we enforce code formatting rules, making collaboration easier and code more maintainable.
 
 ### Commands
 
