@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Metabox.io plugin by the open-source CMB2 plugin to align with OpenWebConcept's policy of using open-source plugins (fully backward-compatible)
+- Replaced the Metabox.io plugin with the open-source CMB2 plugin to align with OpenWebConcept's policy of using open-source solutions. This change is fully backward-compatible, except for cases where an external plugin or theme uses the 'rwmb_meta_boxes' hook to add custom metaboxes.
 - Updated translations
 - License
 
