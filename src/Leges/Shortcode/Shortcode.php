@@ -43,6 +43,11 @@ class Shortcode
             $price = $newPrice;
         }
 
+        /**
+         * Perhaps a better way, locations plug-in has something similar.
+         */
+        $price = number_format($price, 2, ',', '.'); // Format to dutch notation.
+
         $format = apply_filters('owc/pdc/leges/shortcode/format', '<span>&euro; %s</span>');
         $output = sprintf($format, $price);
         $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);

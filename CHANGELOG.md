@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.2.0
+
+### Added
+
+- A new WP Cron event that converts the meta values '_pdc-lege-price' and '_pdc-lege-new-price' from string format (e.g., "196,00") to float string format (e.g., "196.00"). This change ensures consistent data storage and improves compatibility with arithmetic operations and data processing. The event is executed only once upon installation of this version.
+- New meta fields added to the Custom Post Type (CPT) `pdc-leges` to support the enhanced functionality and data structure.
+
 ## 2.1.0
 
 ### Changed

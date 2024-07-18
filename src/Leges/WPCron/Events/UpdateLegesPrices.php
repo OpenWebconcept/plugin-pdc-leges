@@ -13,9 +13,6 @@ class UpdateLegesPrices extends AbstractEvent
     private const META_ACTIVE_DATE = '_pdc-lege-active-date';
     private const META_PRICE = '_pdc-lege-price';
 
-    /**
-     * Execute the cron job to update leges prices.
-     */
     protected function execute(): void
     {
         $leges = $this->getLeges();
@@ -30,7 +27,11 @@ class UpdateLegesPrices extends AbstractEvent
     }
 
     /**
-     * Retrieve leges that need updating.
+     * Retrieve fees that have a new price and a specified date for when
+     * the new price should take effect as the current price.
+     *
+     * Note: Direct date comparison is not possible because the date is not
+     * stored in a format that WP_Query can work with.
      *
      * @return WP_Post[]
      */
@@ -94,7 +95,7 @@ class UpdateLegesPrices extends AbstractEvent
     }
 
     /**
-     * Update the post meta for a lege.
+     * Overwrite the current price with the new price.
      */
     protected function updatePostMeta(WP_Post $lege): void
     {
@@ -109,11 +110,11 @@ class UpdateLegesPrices extends AbstractEvent
 
         $updated = update_post_meta($lege->ID, self::META_PRICE, $newPrice);
 
-		/**
-		 * Check if the previous and new prices are the same.
-		 * If they are, updating will return false, but this is not a reason to stop the current iteration.
-		 * If they are not the same, something else went wrong, so stop the current iteration.
-		 */
+        /**
+         * Check if the previous and new prices are the same.
+         * If they are, updating will return false, but this is not a reason to stop the current iteration.
+         * If they are not the same, something else went wrong, so stop the current iteration.
+         */
         if (! $updated && $currentPrice !== $newPrice) {
             $this->logError(sprintf('could not update lege [%s].', $lege->post_title));
 

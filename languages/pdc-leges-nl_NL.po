@@ -28,8 +28,8 @@ msgid "Yard Internet"
 msgstr "Yard Internet"
 
 #. Author URI of the plugin
-msgid "https://www.yardinternet.nl/"
-msgstr "https://www.yardinternet.nl/"
+msgid "https://www.yard.nl/"
+msgstr "https://www.yard.nl/"
 
 #: includes/dependency-check.php:29
 msgid "The following plugins are required to use the PDC Leges:"
@@ -44,35 +44,67 @@ msgid "Price"
 msgstr "Bedrag"
 
 #: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:194
-#: src/Leges/Metabox/MetaboxServiceProvider.php:42
+#: src/Leges/Metabox/MetaboxServiceProvider.php:58
 #: src/Leges/PostType/LegesPostTypeServiceProvider.php:68
 msgid "Date new lege active"
 msgstr "Datum actief nieuwe lege"
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:20
+#: src/Leges/Metabox/MetaboxServiceProvider.php:26
 msgid "Lege settings"
 msgstr "Lege instellingen"
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:28
+#: src/Leges/Metabox/MetaboxServiceProvider.php:34
 msgid "Lege price"
 msgstr "Lege prijs"
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:29
-#: src/Leges/Metabox/MetaboxServiceProvider.php:36
+#: src/Leges/Metabox/MetaboxServiceProvider.php:35
+#: src/Leges/Metabox/MetaboxServiceProvider.php:47
 msgid "Price in &euro;"
 msgstr "Prijs in &euro;"
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:35
+#: src/Leges/Metabox/MetaboxServiceProvider.php:46
 msgid "Lege new price"
 msgstr "Lege nieuw bedrag"
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:47
+#: src/Leges/Metabox/MetaboxServiceProvider.php:63
 msgid "dd-mm-yy"
 msgstr "dd-mm-yy"
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:54
+#: src/Leges/Metabox/MetaboxServiceProvider.php:70
 msgid "(dd-mm-yy)"
 msgstr "(dd-mm-yy)"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:74
+msgid "Start Time"
+msgstr "Starttijd"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:84
+msgid "End Time"
+msgstr "Eindtijd"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:94
+msgid "Person Count Threshold"
+msgstr "Drempelwaarde voor aantal personen"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:95
+msgid "Number of persons from which the price exception applies"
+msgstr "Aantal personen vanaf waar de prijsuitzondering geldt"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:101
+msgid "Exception Price"
+msgstr "Uitzonderingsprijs"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:102
+msgid "Price in &euro; when the person count threshold is met"
+msgstr "Prijs in &euro; wanneer de drempelwaarde voor aantal personen is bereikt"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:113
+msgid "Applicable Days"
+msgstr "Toepasbare dagen"
+
+#: src/Leges/Metabox/MetaboxServiceProvider.php:114
+msgid "Select the days on which this lege is applicable"
+msgstr "Selecteer de dagen waarop deze lege toepasbaar is"
 
 #: src/Leges/PostType/LegesPostTypeServiceProvider.php:27
 msgctxt "post type general name"
@@ -158,3 +190,31 @@ msgstr "Gepubliceerd"
 #: src/Leges/PostType/LegesPostTypeServiceProvider.php:84
 msgid "Modified"
 msgstr "Aangepast"
+
+#: src/Leges/Traits/WeekDays.php:13
+msgid "Monday"
+msgstr "Maandag"
+
+#: src/Leges/Traits/WeekDays.php:14
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+#: src/Leges/Traits/WeekDays.php:15
+msgid "Wednesday"
+msgstr "Woensdag"
+
+#: src/Leges/Traits/WeekDays.php:16
+msgid "Thursday"
+msgstr "Donderdag"
+
+#: src/Leges/Traits/WeekDays.php:17
+msgid "Friday"
+msgstr "Vrijdag"
+
+#: src/Leges/Traits/WeekDays.php:18
+msgid "Saturday"
+msgstr "Zaterdag"
+
+#: src/Leges/Traits/WeekDays.php:19
+msgid "Sunday"
+msgstr "Zondag"

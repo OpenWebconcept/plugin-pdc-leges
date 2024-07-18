@@ -4,8 +4,14 @@ namespace OWC\PDC\Leges\Metabox;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
 
+use OWC\PDC\Leges\Traits\FloatSanitizer;
+use OWC\PDC\Leges\Traits\WeekDays;
+
 class MetaboxServiceProvider extends ServiceProvider
 {
+    use FloatSanitizer;
+    use WeekDays;
+
     public function register(): void
     {
         add_filter('cmb2_admin_init', [$this, 'registerMetaboxes'], 10, 0);
@@ -29,6 +35,11 @@ class MetaboxServiceProvider extends ServiceProvider
             'desc' => __('Price in &euro;', 'pdc-leges'),
             'id' => "{$prefix}-price",
             'type' => 'text',
+            'attributes' => [
+                'type' => 'number',
+                'step' => '0.01',
+            ],
+            'sanitization_cb' => [$this, 'sanitizeFloat'],
         ]);
 
         $cmb->add_field([
@@ -36,6 +47,11 @@ class MetaboxServiceProvider extends ServiceProvider
             'desc' => __('Price in &euro;', 'pdc-leges'),
             'id' => "{$prefix}-new-price",
             'type' => 'text',
+            'attributes' => [
+                'type' => 'number',
+                'step' => '0.01',
+            ],
+            'sanitization_cb' => [$this, 'sanitizeFloat'],
         ]);
 
         $cmb->add_field([
@@ -52,6 +68,53 @@ class MetaboxServiceProvider extends ServiceProvider
                 'data-min-date' => 0,
             ],
             'desc' => esc_html__('(dd-mm-yy)', 'pdc-leges'),
+        ]);
+
+        $cmb->add_field([
+            'name' => __('Start Time', 'pdc-leges'),
+            'id' => "{$prefix}-start-time",
+            'type' => 'text_time',
+            'time_format' => 'H:i',
+            'attributes' => [
+                'data-time-format' => 'H:i',
+            ],
+        ]);
+
+        $cmb->add_field([
+            'name' => __('End Time', 'pdc-leges'),
+            'id' => "{$prefix}-end-time",
+            'type' => 'text_time',
+            'time_format' => 'H:i',
+            'attributes' => [
+                'data-time-format' => 'H:i',
+            ],
+        ]);
+
+        $cmb->add_field([
+            'name' => __('Person Count Threshold', 'pdc-leges'),
+            'desc' => __('Number of persons from which the price exception applies', 'pdc-leges'),
+            'id' => "{$prefix}-person-count-threshold",
+            'type' => 'text_small',
+        ]);
+
+        $cmb->add_field([
+            'name' => __('Exception Price', 'pdc-leges'),
+            'desc' => __('Price in &euro; when the person count threshold is met', 'pdc-leges'),
+            'id' => "{$prefix}-exception-price",
+            'type' => 'text',
+            'attributes' => [
+                'type' => 'number',
+                'step' => '0.01',
+            ],
+            'sanitization_cb' => [$this, 'sanitizeFloat'],
+        ]);
+
+        $cmb->add_field([
+            'name' => __('Applicable Days', 'pdc-leges'),
+            'desc' => __('Select the days on which this lege is applicable', 'pdc-leges'),
+            'id' => "{$prefix}-applicable-days",
+            'type' => 'multicheck',
+            'options' => $this->getWeekDays(),
         ]);
     }
 }
