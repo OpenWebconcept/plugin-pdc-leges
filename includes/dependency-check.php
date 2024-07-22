@@ -6,7 +6,7 @@ class DependencyCheck
 {
     public static function checkDependencies(): bool
     {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
         if (! is_plugin_active('pdc-base/pdc-base.php')) {
             add_action('admin_notices', [self::showPluginDependencyNotice('OpenPDC Base (version >= 3.0.0)')]);

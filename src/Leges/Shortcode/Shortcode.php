@@ -33,26 +33,29 @@ class Shortcode
             return false;
         }
 
-        $id = absint($attributes['id']);
-        $metaData = $this->mergeWithDefaults(get_metadata('post', $id));
-        $price = $metaData['_pdc-lege-price'];
-        $newPrice = $metaData['_pdc-lege-new-price'];
-        $dateActive = $metaData['_pdc-lege-active-date'];
+        [$price, $newPrice, $dateActive] = $this->extractMeta($attributes);
 
-        if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive)) {
+        if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && ! empty($newPrice)) {
             $price = $newPrice;
         }
 
-        /**
-         * Perhaps a better way, locations plug-in has something similar.
-         */
-        $price = number_format($price, 2, ',', '.'); // Format to dutch notation.
-
         $format = apply_filters('owc/pdc/leges/shortcode/format', '<span>&euro; %s</span>');
-        $output = sprintf($format, $price);
+        $output = sprintf($format, number_format_i18n($price, 2));
         $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);
 
         return $output;
+    }
+
+    protected function extractMeta(array $attributes): array
+    {
+        $legeID = $id = absint($attributes['id']);
+        $metaData = $this->mergeWithDefaults(get_metadata('post', $legeID));
+
+        return [
+            $metaData['_pdc-lege-price'] ?? null,
+            $metaData['_pdc-lege-new-price'] ?? null,
+            $metaData['_pdc-lege-active-date'] ?? null,
+        ];
     }
 
     /**

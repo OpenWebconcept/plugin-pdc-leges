@@ -44,7 +44,7 @@ class LegesRepository extends AbstractRepository
             'end_time' => get_post_meta($post->ID, '_pdc-lege-end-time', true) ?: null,
             'person_count_treshold' => get_post_meta($post->ID, '_pdc-lege-person-count-threshold', true) ?: null,
             'exception_price' => get_post_meta($post->ID, '_pdc-lege-exception-price', true) ?: null,
-            'applicable-days' => $this->formatApplicableDays($post),
+            'applicable_days' => $this->formatApplicableDays($post),
         ];
     }
 
