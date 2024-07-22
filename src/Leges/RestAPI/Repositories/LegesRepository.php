@@ -3,6 +3,7 @@
 namespace OWC\PDC\Leges\RestAPI\Repositories;
 
 use OWC\PDC\Leges\RestAPI\Contracts\AbstractRepository;
+use OWC\PDC\Leges\Settings\Settings;
 use OWC\PDC\Leges\Traits\WeekDays;
 use WP_Post;
 
@@ -20,7 +21,7 @@ class LegesRepository extends AbstractRepository
      */
     public function transform(WP_Post $post): array
     {
-        return [
+        return array_merge([
             'id' => $post->ID,
             'title' => $post->post_title,
             'slug' => $post->post_name,
@@ -29,15 +30,25 @@ class LegesRepository extends AbstractRepository
             'price' => get_post_meta($post->ID, '_pdc-lege-price', true) ?: null,
             'new_price' => get_post_meta($post->ID, '_pdc-lege-new-price', true) ?: null,
             'new_price_active_date' => get_post_meta($post->ID, '_pdc-lege-active-date', true) ?: null,
+        ], $this->extendedMetaboxValues($post));
+    }
+
+    protected function extendedMetaboxValues(WP_Post $post): array
+    {
+        if (! Settings::make()->extensionEnabled()) {
+            return [];
+        }
+
+        return [
             'start_time' => get_post_meta($post->ID, '_pdc-lege-start-time', true) ?: null,
             'end_time' => get_post_meta($post->ID, '_pdc-lege-end-time', true) ?: null,
             'person_count_treshold' => get_post_meta($post->ID, '_pdc-lege-person-count-threshold', true) ?: null,
             'exception_price' => get_post_meta($post->ID, '_pdc-lege-exception-price', true) ?: null,
-            'applicable-days' => $this->handleApplicableDays($post),
+            'applicable-days' => $this->formatApplicableDays($post),
         ];
     }
 
-    protected function handleApplicableDays(WP_Post $post): array
+    protected function formatApplicableDays(WP_Post $post): array
     {
         $days = get_post_meta($post->ID, '_pdc-lege-applicable-days', true) ?: [];
 

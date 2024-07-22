@@ -31,6 +31,22 @@ msgstr ""
 msgid "https://www.yard.nl/"
 msgstr ""
 
+#: config/settings_pages.php:6
+msgid "PDC leges"
+msgstr ""
+
+#: config/settings_pages.php:10
+msgid "General"
+msgstr ""
+
+#: config/settings_pages.php:15
+msgid "Extend"
+msgstr ""
+
+#: config/settings_pages.php:16
+msgid "Extend the registered metaboxes with the following features: a person count threshold, an exception price, and a days selector for when a lege is applicable."
+msgstr ""
+
 #: includes/dependency-check.php:29
 msgid "The following plugins are required to use the PDC Leges:"
 msgstr ""
@@ -44,65 +60,65 @@ msgid "Price"
 msgstr ""
 
 #: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:194
-#: src/Leges/Metabox/MetaboxServiceProvider.php:58
+#: src/Leges/Metabox/Metabox.php:64
 #: src/Leges/PostType/LegesPostTypeServiceProvider.php:68
 msgid "Date new lege active"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:26
+#: src/Leges/Metabox/Metabox.php:21
 msgid "Lege settings"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:34
+#: src/Leges/Metabox/Metabox.php:40
 msgid "Lege price"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:35
-#: src/Leges/Metabox/MetaboxServiceProvider.php:47
+#: src/Leges/Metabox/Metabox.php:41
+#: src/Leges/Metabox/Metabox.php:53
 msgid "Price in &euro;"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:46
+#: src/Leges/Metabox/Metabox.php:52
 msgid "Lege new price"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:63
+#: src/Leges/Metabox/Metabox.php:69
 msgid "dd-mm-yy"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:70
+#: src/Leges/Metabox/Metabox.php:76
 msgid "(dd-mm-yy)"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:74
+#: src/Leges/Metabox/Metabox.php:83
 msgid "Start Time"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:84
+#: src/Leges/Metabox/Metabox.php:93
 msgid "End Time"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:94
+#: src/Leges/Metabox/Metabox.php:103
 msgid "Person Count Threshold"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:95
+#: src/Leges/Metabox/Metabox.php:104
 msgid "Number of persons from which the price exception applies"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:101
+#: src/Leges/Metabox/Metabox.php:110
 msgid "Exception Price"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:102
+#: src/Leges/Metabox/Metabox.php:111
 msgid "Price in &euro; when the person count threshold is met"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:113
+#: src/Leges/Metabox/Metabox.php:122
 msgid "Applicable Days"
 msgstr ""
 
-#: src/Leges/Metabox/MetaboxServiceProvider.php:114
+#: src/Leges/Metabox/Metabox.php:123
 msgid "Select the days on which this lege is applicable"
 msgstr ""
 
