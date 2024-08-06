@@ -19,10 +19,10 @@ class LegesController
 
     public function getLeges(WP_REST_Request $request): WP_REST_Response
     {
-        $this->repository->addQueryArguments([
+        $this->repository->addQueryArguments(array_merge([
             'posts_per_page' => $request->get_param('limit'),
             'paged' => $request->get_param('page'),
-        ]);
+        ], $this->addMetaQueryArguments($request)));
 
         $data = $this->repository->all();
         $query = $this->repository->getQuery();
@@ -30,8 +30,49 @@ class LegesController
         return new WP_REST_Response($this->addPaginator($data, $query), 200);
     }
 
+	protected function addMetaQueryArguments(WP_REST_Request $request): array
+	{
+		$metaKey = $request->get_param('meta_key');
+        $metaValue = $request->get_param('meta_value');
+
+		if (empty($metaKey) || empty($metaValue)) {
+			return [];
+		}
+
+		if (! $this->checkAllowedMetaKeys($metaKey)) {
+			return [];
+		}
+
+		$metaValue = explode(',', $metaValue);
+
+		return [
+			'meta_query' => [
+				[
+					'key' => $metaKey,
+					'value' => $metaValue,
+					'compare' => 'IN'
+				]
+			]
+		];
+	}
+
+	protected function checkAllowedMetaKeys(string $metaKey): bool
+	{
+		$allowed = apply_filters('owc/pdc/leges/rest-api/args/allowed-meta-keys', [
+			'_pdc-lege-price',
+			'_pdc-lege-new-price',
+			'_pdc-lege-active-date',
+			'_pdc-lege-start-time',
+			'_pdc-lege-end-time',
+			'_pdc-lege-person-count-threshold',
+			'_pdc-lege-exception-price'
+		]);
+
+		return in_array($metaKey, $allowed);
+	}
+
     /**
-     * @return WP_REST_Request|WP_Error
+     * @return WP_REST_Response|WP_Error
      */
     public function getLege(WP_REST_Request $request)
     {
@@ -48,7 +89,7 @@ class LegesController
     }
 
     /**
-     * @return WP_REST_Request|WP_Error
+     * @return WP_REST_Response|WP_Error
      */
     public function getLegeBySlug(WP_REST_Request $request)
     {

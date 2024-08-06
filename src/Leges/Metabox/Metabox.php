@@ -125,5 +125,10 @@ class Metabox
             'type' => 'multicheck',
             'options' => $this->getWeekDays(),
         ]);
+
+		/**
+		 * Allows adding custom CMB2 metaboxes.
+		 */
+		apply_filters('owc/pdc/leges/metabox/extension-fields/add', $cmb, self::PREFIX);
     }
 }

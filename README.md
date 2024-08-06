@@ -39,6 +39,48 @@ By using Husky, we enforce code formatting rules, making collaboration easier an
 Since version 2.0.0, the commands have been replaced by WP Cron Events. This change requires less configuration on your server by eliminating the need to add server cron jobs. Just activate the plugin and you're all set.
 Remember to remove any previously configured cron jobs from your web server, as they have been deprecated since version 2.0.0.
 
+## REST API Endpoints
+
+This plugin registers several REST API endpoints to retrieve information about "leges". Below is a description of the available endpoints and their corresponding parameters.
+
+### Endpoint: `/wp-json/owc/pdc/v1/leges`
+
+- **Method:** GET
+- **Description:** Retrieves a list of "leges" posts.
+- **Parameters:**
+  - `limit` (integer): The number of posts per page. Default is 10. Minimum is -1. Maximum is 100.
+  - `page` (integer): The current page number. Default is 1.
+  - `meta_key` (string, optional): The meta key to filter by.
+  - `meta_value` (string, optional): The meta value to filter by. Multiple values are supported, use a comma seperated string when you want to filter on multiple values.
+
+**Example Request:**
+
+```sh
+GET /wp-json/owc/pdc/v1/leges?limit=5&page=2&meta_key=_pdc-lege-price&meta_value=7.63
+```
+
+#### Endpoint: `/wp-json/owc/pdc/v1/leges/(?P<id>\d+)`
+
+- **Method:** GET
+- **Description:** Retrieves a specific "lege" post by its ID.
+- **Parameters:**
+  - `id` (integer): The ID of the post.
+
+```sh
+GET /wp-json/owc/pdc/v1/leges/123
+```
+
+#### Endpoint: `/wp-json/owc/pdc/v1/leges/(?P<slug>[\w-]+)`
+
+- **Method:** GET
+- **Description:** Retrieves a specific "lege" post by its slug.
+- **Parameters:**
+  - `slug` (string): The slug of the post.
+
+```sh
+GET /wp-json/owc/pdc/v1/leges/sample-slug
+```
+
 ### WP Cron Events
 
 Lege prices are automatically updated by a scheduled event registered by this plugin. Currently, this plugin registers one event, but more may be added in the future.
@@ -75,13 +117,50 @@ Via the plugin object the following config settings can be adjusted
 ##### Filter the format of the shortcode output
 
 ```php
-owc/pdc/leges/shortcode/format
+// Default format: '<span>&euro; %s</span>'
+add_filter('owc/pdc/leges/shortcode/format', function(string $format){
+ return str_replace('span', 'b', $format); // Returns '<b>&euro; %s</b>'
+}, 10, 1);
 ```
 
 ##### Filter the output of the shortcode output
 
 ```php
-owc/pdc/leges/shortcode/after-format
+// $output: '<b>&euro; 10,00</b>'
+add_filter('owc/pdc/leges/shortcode/after-format', function ($output){
+ return str_replace('b', 'span', $output); // Returns: '<span>&euro; 10,00</span>'
+}, 10, 1);
+```
+
+##### Add custom CMB2 metaboxes
+
+```php
+add_filter('owc/pdc/leges/metabox/extension-fields/add', function($cmb, $prefix){
+ $cmb->add_field([
+  'name' => 'Custom field name',
+  'desc' => 'Custom field description',
+  'id' => sprintf('%s-custom-field-id', $prefix),
+  'type' => 'text',
+ ]);
+}, 10, 2);
+```
+
+##### Add meta values of custom CMB2 metaboxes to the output of the REST API
+
+```php
+add_filter('owc/pdc/leges/rest-api/output/extension-fields/add', function(WP_Post $post, array $output){
+ return array_merge($output, [
+  'custom-field-id' => get_post_meta($post->ID, '_pdc-lege-custom-field-id', true) ?: null
+ ]);
+}, 10, 2);
+```
+
+##### Filter allowed meta keys used for filtering the leges endpoint
+
+```php
+  add_filter('owc/pdc/leges/rest-api/args/allowed-meta-keys', function ($allowed){
+   return array_merge($allowed, ['_pdc-lege-custom-field-id']);
+ });
 ```
 
 ### Translations

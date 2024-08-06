@@ -25,7 +25,7 @@ class Shortcode
             'id' => 0,
         ], $attributes);
 
-        if (! isset($attributes['id']) || empty($attributes['id']) || (1 > $attributes['id'])) {
+        if (empty($attributes['id']) || (1 > $attributes['id'])) {
             return false;
         }
 
@@ -43,7 +43,7 @@ class Shortcode
         $output = sprintf($format, number_format_i18n($price, 2));
         $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);
 
-        return $output;
+        return wp_kses_post($output);
     }
 
     protected function extractMeta(array $attributes): array

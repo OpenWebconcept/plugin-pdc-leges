@@ -33,6 +33,16 @@ class RestAPIServiceProvider extends ServiceProvider
 					'description' => 'Current page number.',
 					'type' => 'integer',
 					'default' => 1
+				],
+				'meta_key' => [
+					'description' => 'Meta key to filter by.',
+					'type' => 'string',
+					'required' => false,
+				],
+				'meta_value' => [
+					'description' => 'Meta value to filter by.',
+					'type' => 'string',
+					'required' => false,
 				]
 			]
         ]);
