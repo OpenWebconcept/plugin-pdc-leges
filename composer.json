@@ -53,7 +53,7 @@
       "@integration"
     ],
     "package": "chmod +x ./bin/package.sh && ./bin/package.sh",
-    "format": "vendor/bin/php-cs-fixer fix"
+    "format": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php"
   },
   "config": {
     "allow-plugins": {

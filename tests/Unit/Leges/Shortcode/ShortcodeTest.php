@@ -126,9 +126,30 @@ class TestShortcode extends TestCase
                 ],
                 'return' => [
                     '_pdc-lege-active-date' => null,
-                    '_pdc-lege-price' => 10,
+                    '_pdc-lege-price' => 10.00,
                     '_pdc-lege-new-price' => null,
                 ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    10.00,
+                    2,
+                ],
+                'return' => '10,00',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 10,00</span>',
+                ],
+                'return' => '<span>&euro; 10,00</span>',
             ]
         );
 
@@ -137,7 +158,7 @@ class TestShortcode extends TestCase
         ];
 
         $actual = $this->service->addShortcode($attributes);
-        $expected = '<span>&euro; 10</span>';
+        $expected = '<span>&euro; 10,00</span>';
 
         $this->assertEquals($actual, $expected);
     }
@@ -169,10 +190,31 @@ class TestShortcode extends TestCase
                     $this->postID,
                 ],
                 'return' => [
-                    '_pdc-lege-price' => 10,
-                    '_pdc-lege-new-price' => 20,
+                    '_pdc-lege-price' => 10.00,
+                    '_pdc-lege-new-price' => 20.00,
                     '_pdc-lege-active-date' => '23-05-3000',
                 ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    10.00,
+                    2,
+                ],
+                'return' => '10,00',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 10,00</span>',
+                ],
+                'return' => '<span>&euro; 10,00</span>',
             ]
         );
 
@@ -181,7 +223,7 @@ class TestShortcode extends TestCase
         ];
 
         $actual = $this->service->addShortcode($attributes);
-        $expected = '<span>&euro; 10</span>';
+        $expected = '<span>&euro; 10,00</span>';
 
         $this->assertEquals($actual, $expected);
     }
@@ -214,10 +256,31 @@ class TestShortcode extends TestCase
                 ],
                 'return' => [
                     'key' => 'value',
-                    '_pdc-lege-price' => 10,
+                    '_pdc-lege-price' => 10.00,
                     '_pdc-lege-new-price' => null,
                     '_pdc-lege-active-date' => '06-05-2018',
                 ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    10.00,
+                    2,
+                ],
+                'return' => false,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; </span>',
+                ],
+                'return' => '<span>&euro; </span>',
             ]
         );
 
@@ -258,10 +321,31 @@ class TestShortcode extends TestCase
                     $this->postID,
                 ],
                 'return' => [
-                    '_pdc-lege-price' => 10,
-                    '_pdc-lege-new-price' => 20,
+                    '_pdc-lege-price' => 10.00,
+                    '_pdc-lege-new-price' => 20.00,
                     '_pdc-lege-active-date' => '06-05-2018',
                 ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    20.00,
+                    2,
+                ],
+                'return' => '20,00',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 20,00</span>',
+                ],
+                'return' => '<span>&euro; 20,00</span>',
             ]
         );
 
@@ -270,7 +354,7 @@ class TestShortcode extends TestCase
         ];
 
         $actual = $this->service->addShortcode($attributes);
-        $expected = '<span>&euro; 20</span>';
+        $expected = '<span>&euro; 20,00</span>';
 
         $this->assertEquals($actual, $expected);
     }

@@ -4,8 +4,8 @@ namespace OWC\PDC\Leges\Tests\Admin\QuickEdit;
 
 use Mockery as m;
 use OWC\PDC\Base\Foundation\Config;
-use OWC\PDC\Base\Foundation\Plugin;
 use OWC\PDC\Base\Foundation\Loader;
+use OWC\PDC\Base\Foundation\Plugin;
 use OWC\PDC\Leges\Admin\QuickEdit\QuickEditServiceProvider;
 use OWC\PDC\Leges\Tests\Unit\TestCase;
 use WP_Mock;
@@ -40,29 +40,29 @@ class QuickEditServiceProviderTest extends TestCase
         $this->setRunTestInSeparateProcess(true);
         $this->setRunClassInSeparateProcess(true);
 
-        $config       = m::mock(Config::class);
+        $config = m::mock(Config::class);
         $this->plugin = m::mock(Plugin::class);
 
         $this->plugin->config = $config;
         $this->plugin->loader = m::mock(Loader::class);
 
         $this->stub = [
-            'new-price'   => [
+            'new-price' => [
                 'metaboxKey' => 'new-price',
-                'label'      => 'New price'
+                'label' => 'New price',
             ],
-            'price'       => [
+            'price' => [
                 'metaboxKey' => 'price',
-                'label'      => 'Price'
+                'label' => 'Price',
             ],
             'active-date' => [
                 'metaboxKey' => 'active-date',
-                'label'      => 'Date new lege active'
-            ]
+                'label' => 'Date new lege active',
+            ],
         ];
 
-        $this->post            = m::mock(WP_Post::class);
-        $this->post->ID        = 5;
+        $this->post = m::mock(WP_Post::class);
+        $this->post->ID = 5;
         $this->post->post_type = 'page';
 
         $this->service = new QuickEditServiceProvider($this->plugin);
@@ -81,7 +81,7 @@ class QuickEditServiceProviderTest extends TestCase
             $this->service,
             'registerQuickEditHandler',
             10,
-            2
+            2,
         ])->once();
 
         $this->plugin->loader->shouldReceive('addAction')->withArgs([
@@ -89,7 +89,7 @@ class QuickEditServiceProviderTest extends TestCase
             $this->service,
             'registerSavePostHandler',
             10,
-            2
+            2,
         ])->once();
 
         $this->plugin->loader->shouldReceive('addAction')->withArgs([
@@ -97,7 +97,7 @@ class QuickEditServiceProviderTest extends TestCase
             $this->service,
             'renderFooterScript',
             10,
-            1
+            1,
         ])->once();
 
         $this->plugin->loader->shouldReceive('addFilter')->withArgs([
@@ -105,7 +105,7 @@ class QuickEditServiceProviderTest extends TestCase
             $this->service,
             'addRowActions',
             10,
-            2
+            2,
         ])->once();
 
         $this->service->register();
@@ -119,16 +119,16 @@ class QuickEditServiceProviderTest extends TestCase
         $actions['inline hide-if-no-js'] = '<a href="#" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         WP_Mock::userFunction('get_post_meta', [
-            'times'           => 3,
+            'times' => 3,
             'return_in_order' => [
                 '130',
                 '120',
-                '23-05-2018'
-            ]
+                '23-05-2018',
+            ],
         ]);
 
         $this->service->setQuickEditHandlers();
-        $actual                           = $this->service->addRowActions($actions, $this->post);
+        $actual = $this->service->addRowActions($actions, $this->post);
         $expected['inline hide-if-no-js'] = '<a href="#" data-new-price="130" data-price="120" data-active-date="23-05-2018" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         $this->assertEquals($expected, $actual);
@@ -140,16 +140,16 @@ class QuickEditServiceProviderTest extends TestCase
         $actions['inline hide-if-no-js'] = '<a href="#" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         WP_Mock::userFunction('get_post_meta', [
-            'times'           => 3,
+            'times' => 3,
             'return_in_order' => [
                 null,
                 '120',
-                '23-05-2018'
-            ]
+                '23-05-2018',
+            ],
         ]);
 
         $this->service->setQuickEditHandlers();
-        $actual                           = $this->service->addRowActions($actions, $this->post);
+        $actual = $this->service->addRowActions($actions, $this->post);
         $expected['inline hide-if-no-js'] = '<a href="#" data-price="120" data-active-date="23-05-2018" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         $this->assertEquals($expected, $actual);
@@ -159,7 +159,7 @@ class QuickEditServiceProviderTest extends TestCase
     public function if_returns_null_if_post_is_revision()
     {
         WP_Mock::userFunction('wp_is_post_revision', [
-            'return' => true
+            'return' => true,
         ]);
 
         $actual = $this->service->registerSavePostHandler($this->post->ID, $this->post);
@@ -170,7 +170,7 @@ class QuickEditServiceProviderTest extends TestCase
     public function if_returns_null_if_post_is_autosave()
     {
         WP_Mock::userFunction('wp_is_post_autosave', [
-            'return' => true
+            'return' => true,
         ]);
 
         $actual = $this->service->registerSavePostHandler($this->post->ID, $this->post);
@@ -191,7 +191,7 @@ class QuickEditServiceProviderTest extends TestCase
         $this->post->post_type = 'pdc-leges';
 
         WP_Mock::userFunction('current_user_can', [
-            'return' => false
+            'return' => false,
         ]);
 
         $actual = $this->service->registerSavePostHandler($this->post->ID, $this->post);
@@ -205,7 +205,7 @@ class QuickEditServiceProviderTest extends TestCase
         $this->post->post_type = 'pdc-leges';
 
         WP_Mock::userFunction('current_user_can', [
-            'return' => true
+            'return' => true,
         ]);
 
         $this->service->setQuickEditHandlers();
@@ -213,8 +213,8 @@ class QuickEditServiceProviderTest extends TestCase
         $_POST['_pdc-lege-price'] = '10';
 
         WP_Mock::userFunction('update_post_meta', [
-            'times'  => 1,
-            'return' => true
+            'times' => 1,
+            'return' => true,
         ]);
 
         $actual = $this->service->registerSavePostHandler($this->post->ID, $this->post);

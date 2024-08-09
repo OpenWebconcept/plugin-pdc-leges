@@ -7,6 +7,9 @@
 	"lint-staged": {
 		"src/**/*.php": [
 			"composer run format"
+		],
+		"tests/**/*.php": [
+			"composer run format"
 		]
 	},
 	"husky": {

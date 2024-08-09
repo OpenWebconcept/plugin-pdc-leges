@@ -4,8 +4,8 @@ namespace OWC\PDC\Leges\Tests\Shortcode;
 
 use Mockery as m;
 use OWC\PDC\Base\Foundation\Config;
-use OWC\PDC\Base\Foundation\Plugin;
 use OWC\PDC\Base\Foundation\Loader;
+use OWC\PDC\Base\Foundation\Plugin;
 use OWC\PDC\Leges\Shortcode\Shortcode;
 use OWC\PDC\Leges\Shortcode\ShortcodeServiceProvider;
 use OWC\PDC\Leges\Tests\Unit\TestCase;
@@ -20,12 +20,14 @@ class ShortcodeServiceProviderTest extends TestCase
 
     /**
      * Shortcode object.
+     *
      * @var \OWC\PDC\Leges\Shortcode\Shortcode
      */
     private $shortcode;
 
     /**
      * Shortcode tag.
+     *
      * @var string
      */
     private $tag = 'pdc::leges';
@@ -49,8 +51,8 @@ class ShortcodeServiceProviderTest extends TestCase
     {
         Parent::setUp();
 
-        $this->config         = m::mock(Config::class);
-        $this->plugin         = m::mock(Plugin::class);
+        $this->config = m::mock(Config::class);
+        $this->plugin = m::mock(Plugin::class);
         $this->plugin->config = $this->config;
         $this->plugin->loader = m::mock(Loader::class);
 
@@ -71,12 +73,12 @@ class ShortcodeServiceProviderTest extends TestCase
     {
         \WP_Mock::userFunction('add_shortcode', [
             'times' => 1,
-            'args'  => [
+            'args' => [
                 $this->tag,
                 [
                     $this->shortcode,
-                    'addShortcode'
-                ]
+                    'addShortcode',
+                ],
             ],
         ]);
 
