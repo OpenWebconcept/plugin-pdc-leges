@@ -43,7 +43,7 @@ class Shortcode
         $output = sprintf($format, number_format_i18n($price, 2));
         $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);
 
-        return wp_kses_post($output);
+        return wp_kses_post($output) ?? '';
     }
 
     protected function extractMeta(array $attributes): array

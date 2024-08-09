@@ -11,15 +11,15 @@ class WPCronServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-		$this->registerHooks();
+        $this->registerHooks();
         $this->registerEvents();
     }
 
-	protected function registerHooks(): void
-	{
-		add_action('owc_pdc_leges_update_cron', [UpdateLegesPrices::class, 'init']);
-		add_action('owc_pdc_leges_prices_save_format', [LegesPricesSaveFormat::class, 'init']);
-	}
+    protected function registerHooks(): void
+    {
+        add_action('owc_pdc_leges_update_cron', [UpdateLegesPrices::class, 'init']);
+        add_action('owc_pdc_leges_prices_save_format', [LegesPricesSaveFormat::class, 'init']);
+    }
 
     protected function registerEvents()
     {

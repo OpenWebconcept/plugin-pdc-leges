@@ -39,9 +39,9 @@ class LegesRepository extends AbstractRepository
             return [];
         }
 
-		/**
-		 * Allows adding custom CMB2 metaboxes meta values to the output of the REST API.
-		 */
+        /**
+         * Allows adding custom CMB2 metaboxes meta values to the output of the REST API.
+         */
         return apply_filters('owc/pdc/leges/rest-api/output/extension-fields/add', $post, [
             'start_time' => get_post_meta($post->ID, '_pdc-lege-start-time', true) ?: null,
             'end_time' => get_post_meta($post->ID, '_pdc-lege-end-time', true) ?: null,
@@ -59,7 +59,7 @@ class LegesRepository extends AbstractRepository
             return [];
         }
 
-		$filteredDays = array_intersect_key($this->getWeekDays(), array_flip($days));
+        $filteredDays = array_intersect_key($this->getWeekDays(), array_flip($days));
 
         return array_map(function ($numericDayKey, $day) {
             return [
