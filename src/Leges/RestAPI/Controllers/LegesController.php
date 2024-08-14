@@ -19,10 +19,11 @@ class LegesController
 
     public function getLeges(WP_REST_Request $request): WP_REST_Response
     {
-        $this->repository->addQueryArguments(array_merge([
+        $this->repository->addQueryArguments(array_merge(array_filter([
             'posts_per_page' => $request->get_param('limit'),
             'paged' => $request->get_param('page'),
-        ], $this->addMetaQueryArguments($request)));
+            'post__in' => ! empty($request->get_param('ids')) ? explode(',', $request->get_param('ids')): [],
+        ]), $this->addMetaQueryArguments($request)));
 
         $data = $this->repository->all();
         $query = $this->repository->getQuery();

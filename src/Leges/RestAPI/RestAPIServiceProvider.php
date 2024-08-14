@@ -44,6 +44,12 @@ class RestAPIServiceProvider extends ServiceProvider
                     'type' => 'string',
                     'required' => false,
                 ],
+                'ids' => [
+                    'description' => 'Filter on one or more IDs using a comma-separated string of IDs.',
+                    'type' => 'string',
+                    'default' => '',
+                    'required' => false,
+                ],
             ],
         ]);
 

@@ -21,7 +21,7 @@ class WPCronServiceProvider extends ServiceProvider
         add_action('owc_pdc_leges_prices_save_format', [LegesPricesSaveFormat::class, 'init']);
     }
 
-    protected function registerEvents()
+    protected function registerEvents(): void
     {
         if (! wp_next_scheduled('owc_pdc_leges_update_cron')) {
             wp_schedule_event($this->timeToExecute(), 'daily', 'owc_pdc_leges_update_cron');
