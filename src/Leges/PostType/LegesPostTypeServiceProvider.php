@@ -2,7 +2,7 @@
 
 namespace OWC\PDC\Leges\PostType;
 
-use Extended_CPT;
+use ExtCPTs\PostType;
 use OWC\PDC\Base\Foundation\ServiceProvider;
 use OWC\PDC\Leges\Shortcode\ShortcodeServiceProvider;
 
@@ -17,7 +17,7 @@ class LegesPostTypeServiceProvider extends ServiceProvider
         $this->plugin->loader->addFilter("ext-cpts/{$this->postType}/filter-query/{$this->prefix}_post_id", $this, 'filterByPostId', 10, 3);
     }
 
-    public function registerPostType(): Extended_CPT
+    public function registerPostType(): PostType
     {
         if (! function_exists('register_extended_post_type')) {
             require_once($this->plugin->getRootPath() . '/src/Leges/vendor/johnbillion/extended-cpts/extended-cpts.php');

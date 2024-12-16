@@ -9,7 +9,7 @@ use OWC\PDC\Base\Foundation\Plugin;
 use OWC\PDC\Leges\Shortcode\Shortcode;
 use OWC\PDC\Leges\Tests\Unit\TestCase;
 
-class TestShortcode extends TestCase
+class ShortcodeTest extends TestCase
 {
 
     /**
