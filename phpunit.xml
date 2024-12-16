@@ -1,14 +1,11 @@
 <phpunit
 	bootstrap="tests/Unit/bootstrap.php"
 	backupGlobals="false"
-	backupStaticAttributes="false"
 	colors="true"
-	convertErrorsToExceptions="true"
-	convertNoticesToExceptions="true"
-	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnError="false"
 	stopOnFailure="false"
+	testdox="true"
 	verbose="true"
 >
 	<testsuites>
