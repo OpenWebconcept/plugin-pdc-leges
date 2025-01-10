@@ -4,11 +4,14 @@ namespace OWC\PDC\Leges\WPCron\Events;
 
 use DateTime;
 use OWC\PDC\Leges\Repositories\LegesRepository;
+use OWC\PDC\Leges\Traits\NumberSanitizer;
 use OWC\PDC\Leges\WPCron\Contracts\AbstractEvent;
 use WP_Post;
 
 class UpdateLegesPrices extends AbstractEvent
 {
+    use NumberSanitizer;
+
     private const META_NEW_PRICE = '_pdc-lege-new-price';
     private const META_ACTIVE_DATE = '_pdc-lege-active-date';
     private const META_PRICE = '_pdc-lege-price';
@@ -102,8 +105,12 @@ class UpdateLegesPrices extends AbstractEvent
         $currentPrice = get_post_meta($lege->ID, self::META_PRICE, true);
         $newPrice = get_post_meta($lege->ID, self::META_NEW_PRICE, true);
 
-        if (empty($newPrice)) {
-            $this->logError(sprintf('could not update lege [%s], new price meta field is empty.', $lege->post_title));
+        if (! $this->sanitizeAndCheckNumeric($newPrice)) {
+            $this->logError(sprintf(
+                'Could not update lege [%s], new price meta field is not numeric (value: %s).',
+                $lege->post_title,
+                var_export($newPrice, true)
+            ));
 
             return;
         }

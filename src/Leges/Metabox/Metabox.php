@@ -4,12 +4,12 @@ namespace OWC\PDC\Leges\Metabox;
 
 use CMB2;
 use OWC\PDC\Leges\Settings\Settings;
-use OWC\PDC\Leges\Traits\FloatSanitizer;
+use OWC\PDC\Leges\Traits\NumberSanitizer;
 use OWC\PDC\Leges\Traits\WeekDays;
 
 class Metabox
 {
-    use FloatSanitizer;
+    use NumberSanitizer;
     use WeekDays;
 
     public const PREFIX = '_pdc-lege';
@@ -41,10 +41,6 @@ class Metabox
             'desc' => __('Price in &euro;', 'pdc-leges'),
             'id' => sprintf('%s-price', self::PREFIX),
             'type' => 'text',
-            'attributes' => [
-                'type' => 'number',
-                'step' => '0.01',
-            ],
             'sanitization_cb' => [$this, 'sanitizeFloat'],
         ]);
 
@@ -53,10 +49,6 @@ class Metabox
             'desc' => __('Price in &euro;', 'pdc-leges'),
             'id' => sprintf('%s-new-price', self::PREFIX),
             'type' => 'text',
-            'attributes' => [
-                'type' => 'number',
-                'step' => '0.01',
-            ],
             'sanitization_cb' => [$this, 'sanitizeFloat'],
         ]);
 

@@ -26,6 +26,7 @@ if (! defined('WPINC')) {
 
 require_once plugin_dir_path(__FILE__) . 'includes/dependency-check.php';
 require_once plugin_dir_path(__FILE__) . 'includes/deactivate.php'; // Function is used in register_deactivation_hook.
+require_once plugin_dir_path(__FILE__) . 'includes/activate.php';
 
 /**
  * Autoload files using Composer autoload or fallback to custom autoloader.
@@ -34,9 +35,9 @@ if (file_exists(plugin_dir_path(__FILE__) . 'vendor/autoload.php')) {
     require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 } else {
     require_once plugin_dir_path(__FILE__) . 'autoloader.php';
-	if (class_exists('OWC\PDC\Leges\Autoloader')) {
-    	$autoloader = new Autoloader();
-	}
+    if (class_exists('OWC\PDC\Leges\Autoloader')) {
+        $autoloader = new Autoloader();
+    }
 }
 
 /**
@@ -49,13 +50,18 @@ if (file_exists(plugin_dir_path(__FILE__) . 'vendor/autoload.php')) {
 add_action('plugins_loaded', function () {
     $plugin = (new Plugin(__DIR__))->boot();
 
-	// The plugin must be activated before the translations can be loaded.
-	if (! DependencyCheck::checkDependencies()) {
-		deactivate_plugins(plugin_basename(__FILE__));
+    // The plugin must be activated before the translations can be loaded.
+    if (! DependencyCheck::checkDependencies()) {
+        deactivate_plugins(plugin_basename(__FILE__));
 
         return;
     }
 }, 10);
+
+/**
+ * Activation.
+ */
+register_activation_hook(__FILE__, 'owc_pdc_leges_activate');
 
 /**
  * Deactivation.
