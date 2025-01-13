@@ -4,9 +4,12 @@ namespace OWC\PDC\Leges\Shortcode;
 
 use DateTime;
 use Exception;
+use OWC\PDC\Leges\Traits\NumberSanitizer;
 
 class Shortcode
 {
+    use NumberSanitizer;
+
     /**
      * Default fields for leges.
      */
@@ -33,9 +36,9 @@ class Shortcode
             return false;
         }
 
-        [$price, $newPrice, $dateActive] = $this->extractMeta($attributes);
+        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive] = $this->extractMeta($attributes);
 
-        if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && ! empty($newPrice)) {
+        if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && (0 < strlen($newPrice) || $this->sanitizeAndCheckNumeric($newPrice))) {
             $price = $newPrice;
         }
 
@@ -48,13 +51,13 @@ class Shortcode
 
     protected function extractMeta(array $attributes): array
     {
-        $legeID = $id = absint($attributes['id']);
+        $legeID = absint($attributes['id']);
         $metaData = $this->mergeWithDefaults(get_metadata('post', $legeID));
 
         return [
-            $metaData['_pdc-lege-price'] ?? null,
-            $metaData['_pdc-lege-new-price'] ?? null,
-            $metaData['_pdc-lege-active-date'] ?? null,
+            'price' => $metaData['_pdc-lege-price'] ?? '',
+            'newPrice' => $metaData['_pdc-lege-new-price'] ?? '',
+            'dateActive' => $metaData['_pdc-lege-active-date'] ?? '',
         ];
     }
 

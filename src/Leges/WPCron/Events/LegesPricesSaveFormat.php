@@ -3,13 +3,13 @@
 namespace OWC\PDC\Leges\WPCron\Events;
 
 use OWC\PDC\Leges\Repositories\LegesRepository;
-use OWC\PDC\Leges\Traits\FloatSanitizer;
+use OWC\PDC\Leges\Traits\NumberSanitizer;
 use OWC\PDC\Leges\WPCron\Contracts\AbstractEvent;
 use WP_Post;
 
 class LegesPricesSaveFormat extends AbstractEvent
 {
-    use FloatSanitizer;
+    use NumberSanitizer;
 
     private const META_KEY_OLD_PRICE = '_pdc-lege-price';
     private const META_KEY_NEW_PRICE = '_pdc-lege-new-price';
@@ -82,29 +82,48 @@ class LegesPricesSaveFormat extends AbstractEvent
         $oldPrice = get_post_meta($legesPost->ID, self::META_KEY_OLD_PRICE, true);
         $newPrice = get_post_meta($legesPost->ID, self::META_KEY_NEW_PRICE, true);
 
-        if (! empty($oldPrice)) {
-            $oldPrice = $this->prepareFloatSanitation($oldPrice);
-            update_post_meta($legesPost->ID, self::META_KEY_OLD_PRICE, $this->sanitizeFloat($oldPrice));
+        if (0 < strlen($oldPrice) || $this->sanitizeAndCheckNumeric($oldPrice)) {
+            update_post_meta($legesPost->ID, self::META_KEY_OLD_PRICE, $this->convertToFloatString($oldPrice));
         }
 
-        if (! empty($newPrice)) {
-            $newPrice = $this->prepareFloatSanitation($newPrice);
-            update_post_meta($legesPost->ID, self::META_KEY_NEW_PRICE, $this->sanitizeFloat($newPrice));
+        if (0 < strlen($newPrice) || $this->sanitizeAndCheckNumeric($newPrice)) {
+            update_post_meta($legesPost->ID, self::META_KEY_NEW_PRICE, $this->convertToFloatString($newPrice));
         }
     }
 
+    protected function convertToFloatString(string $price): string
+    {
+        $price = $this->prepareFloatSanitation($price);
+
+        return $this->sanitizeFloat($price);
+    }
+
     /**
-     * Converts a price string from a non-standard format (e.g., with commas as decimal separators
-     * or trailing currency symbols) into a sanitized format with a dot (.) as the decimal separator.
-     *
-     * This method:
-     * - Removes trailing currency indicators like ",-" from the price string.
-     * - Replaces commas (",") used as decimal separators with dots (".") for consistency.
+     * Prepares a price string by removing non-standard characters and normalizing its format.
      */
     protected function prepareFloatSanitation(string $price): string
     {
-        $price = str_replace(',-', '', $price);
-        $price = str_replace(',', '.', $price);
+        // Remove non-numeric characters except commas and dots.
+        $price = preg_replace('/[^\d,\.]/', '', $price);
+
+        // If both comma and dot exist, decide which is the decimal separator.
+        if (strpos($price, ',') !== false && strpos($price, '.') !== false) {
+            // If comma is before dot, treat comma as thousand separator.
+            if (strpos($price, ',') < strpos($price, '.')) {
+                $price = str_replace(',', '', $price); // Remove commas.
+            } else {
+                // If dot is before comma, treat dot as thousand separator.
+                $price = str_replace('.', '', $price); // Remove dots.
+                $price = str_replace(',', '.', $price); // Replace last comma with dot.
+            }
+        } elseif (strpos($price, ',') !== false) {
+            // If only a comma is present, replace it with a dot (European notation).
+            $price = str_replace(',', '.', $price);
+        }
+
+        // Remove thousand separators if any remain (just in case).
+        $price = str_replace(',', '', $price);
+        $price = str_replace('.', '', substr($price, 0, -3)) . substr($price, -3);
 
         return $price;
     }

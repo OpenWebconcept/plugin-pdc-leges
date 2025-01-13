@@ -5,9 +5,12 @@ namespace OWC\PDC\Leges\PostType;
 use Extended_CPT;
 use OWC\PDC\Base\Foundation\ServiceProvider;
 use OWC\PDC\Leges\Shortcode\ShortcodeServiceProvider;
+use OWC\PDC\Leges\Traits\NumberSanitizer;
 
 class LegesPostTypeServiceProvider extends ServiceProvider
 {
+    use NumberSanitizer;
+
     protected string $prefix = '_pdc-lege';
     protected string $postType = 'pdc-leges';
 
@@ -58,11 +61,18 @@ class LegesPostTypeServiceProvider extends ServiceProvider
             'admin_cols' => [
                 'price' => [
                     'title' => __('Lege price (in &euro;)', 'pdc-leges'),
-                    'meta_key' => "{$this->prefix}-price",
+                    'function' => function () {
+                        $price = get_post_meta(get_the_ID(), "{$this->prefix}-price", true);
+
+                        echo $price ? number_format_i18n((float) $price, 2) : '';
+                    },
                 ],
                 'new-price' => [
                     'title' => __('Lege new price (in &euro;)', 'pdc-leges'),
-                    'meta_key' => "{$this->prefix}-new-price",
+                    'function' => function () {
+                        $price = get_post_meta(get_the_ID(), "{$this->prefix}-new-price", true);
+                        echo $price ? number_format_i18n((float) $price, 2) : '';
+                    },
                 ],
                 'active-date' => [
                     'title' => __('Date new lege active', 'pdc-leges'),
