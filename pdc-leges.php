@@ -48,7 +48,9 @@ if (file_exists(plugin_dir_path(__FILE__) . 'vendor/autoload.php')) {
  * and wp_loaded action hooks.
  */
 add_action('plugins_loaded', function () {
-    $plugin = (new Plugin(__DIR__))->boot();
+    add_action('after_setup_theme', function () {
+        (new Plugin(__DIR__))->boot();
+    });
 
     // The plugin must be activated before the translations can be loaded.
     if (! DependencyCheck::checkDependencies()) {
