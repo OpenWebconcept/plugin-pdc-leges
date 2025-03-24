@@ -33,9 +33,9 @@ class SettingsServiceProvider extends ServiceProvider
 
     protected function registerSettingsPage(array $page): void
     {
-		if (! isset($page['id'])) {
-			return;
-		}
+        if (! isset($page['id'])) {
+            return;
+        }
 
         $fields = $page['fields'] ?? [];
         unset($page['fields']); // Fields will be added later.
