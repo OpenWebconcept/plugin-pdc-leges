@@ -29,14 +29,16 @@ require_once plugin_dir_path(__FILE__) . 'includes/deactivate.php'; // Function 
 require_once plugin_dir_path(__FILE__) . 'includes/activate.php';
 
 /**
- * Autoload files using Composer autoload or fallback to custom autoloader.
+ * Autoload plugin files if not already loaded
  */
-if (file_exists(plugin_dir_path(__FILE__) . 'vendor/autoload.php')) {
-    require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
-} else {
-    require_once plugin_dir_path(__FILE__) . 'autoloader.php';
-    if (class_exists('OWC\PDC\Leges\Autoloader')) {
-        $autoloader = new Autoloader();
+if (! class_exists(\OWC\PDC\Leges\Foundation\Plugin::class)) {
+    if (file_exists(plugin_dir_path(__FILE__) . 'vendor/autoload.php')) {
+        require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
+    } else {
+        require_once plugin_dir_path(__FILE__) . 'autoloader.php';
+        if (class_exists('OWC\PDC\Leges\Autoloader')) {
+            $autoloader = new Autoloader();
+        }
     }
 }
 
