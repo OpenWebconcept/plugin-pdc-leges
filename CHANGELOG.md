@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 2.2.9
+
+### Fixed
+
+- Autoloader
+
+## 2.2.8
+
+### Fixed
+
+- make johnpbloch/wordpress a dev dependency
+
+## 2.2.7
+
+### Fixed
+
+- Text domain
+
 ## 2.2.6
 
 ### Fixed
