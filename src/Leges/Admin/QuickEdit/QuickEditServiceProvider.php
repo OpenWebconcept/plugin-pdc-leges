@@ -197,7 +197,7 @@ class QuickEditServiceProvider extends ServiceProvider
                 continue;
             }
 
-            $value = $_POST["{$this->prefix}-{$key}"];
+            $value = wp_unslash($_POST["{$this->prefix}-{$key}"]);
 
             if (isset($handler['sanitize_cb']) && is_callable($handler['sanitize_cb'])) {
                 $value = call_user_func($handler['sanitize_cb'], $value);
