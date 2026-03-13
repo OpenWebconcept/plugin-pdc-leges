@@ -39,7 +39,7 @@ class Shortcode
 
         ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage] = $this->extractMeta($attributes);
 
-        if (! empty($percentage)) {
+        if ($percentage !== '' && $percentage !== null) {
             $format = apply_filters('owc/pdc/leges/shortcode/percentage/format', '<span>%s%%</span>');
             $output = sprintf($format, esc_html(str_replace('.', ',', $percentage)));
             $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);
