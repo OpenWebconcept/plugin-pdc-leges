@@ -71,6 +71,13 @@ class LegesPostTypeServiceProvider extends ServiceProvider
                         echo $price ? number_format_i18n((float) $price, 2) : '';
                     },
                 ],
+                'percentage' => [
+                    'title' => __('Lege percentage (%)', 'pdc-leges'),
+                    'function' => function () {
+                        $percentage = get_post_meta(get_the_ID(), "{$this->prefix}-percentage", true);
+                        echo $percentage ? esc_html(str_replace('.', ',', $percentage)) . '%' : '';
+                    },
+                ],
                 'active-date' => [
                     'title' => __('Date new lege active', 'pdc-leges'),
                     'meta_key' => "{$this->prefix}-active-date",

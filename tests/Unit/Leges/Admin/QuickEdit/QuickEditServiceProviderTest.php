@@ -119,17 +119,18 @@ class QuickEditServiceProviderTest extends TestCase
         $actions['inline hide-if-no-js'] = '<a href="#" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         WP_Mock::userFunction('get_post_meta', [
-            'times' => 3,
+            'times' => 4,
             'return_in_order' => [
                 '130',
                 '120',
+                '0.1234',
                 '23-05-2018',
             ],
         ]);
 
         $this->service->setQuickEditHandlers();
         $actual = $this->service->addRowActions($actions, $this->post);
-        $expected['inline hide-if-no-js'] = '<a href="#" data-new-price="130" data-price="120" data-active-date="23-05-2018" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
+        $expected['inline hide-if-no-js'] = '<a href="#" data-new-price="130" data-price="120" data-percentage="0.1234" data-active-date="23-05-2018" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         $this->assertEquals($expected, $actual);
     }
@@ -140,10 +141,11 @@ class QuickEditServiceProviderTest extends TestCase
         $actions['inline hide-if-no-js'] = '<a href="#" class="editinline" aria-label="&#8220;Lege 1&#8221; snel bewerken">Snel&nbsp;bewerken</a>';
 
         WP_Mock::userFunction('get_post_meta', [
-            'times' => 3,
+            'times' => 4,
             'return_in_order' => [
                 null,
                 '120',
+                null,
                 '23-05-2018',
             ],
         ]);

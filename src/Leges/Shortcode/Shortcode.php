@@ -17,6 +17,7 @@ class Shortcode
         '_pdc-lege-active-date' => null,
         '_pdc-lege-price' => null,
         '_pdc-lege-new-price' => null,
+        '_pdc-lege-percentage' => null,
     ];
 
     /**
@@ -36,7 +37,15 @@ class Shortcode
             return false;
         }
 
-        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive] = $this->extractMeta($attributes);
+        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage] = $this->extractMeta($attributes);
+
+        if (! empty($percentage)) {
+            $format = apply_filters('owc/pdc/leges/shortcode/percentage/format', '<span>%s%%</span>');
+            $output = sprintf($format, esc_html(str_replace('.', ',', $percentage)));
+            $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);
+
+            return wp_kses_post($output) ?? '';
+        }
 
         if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && (0 < strlen($newPrice) || $this->sanitizeAndCheckNumeric($newPrice))) {
             $price = $newPrice;
@@ -58,6 +67,7 @@ class Shortcode
             'price' => $metaData['_pdc-lege-price'] ?? '',
             'newPrice' => $metaData['_pdc-lege-new-price'] ?? '',
             'dateActive' => $metaData['_pdc-lege-active-date'] ?? '',
+            'percentage' => $metaData['_pdc-lege-percentage'] ?? '',
         ];
     }
 

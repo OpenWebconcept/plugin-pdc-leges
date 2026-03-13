@@ -9,6 +9,22 @@ trait NumberSanitizer
      */
     public function sanitizeFloat($value): string
     {
+        return $this->sanitizeFloatWithDecimals($value, 2);
+    }
+
+    /**
+     * Sanitize and format a value to a float with four decimal places.
+     */
+    public function sanitizeFloatFourDecimals($value): string
+    {
+        return $this->sanitizeFloatWithDecimals($value, 4);
+    }
+
+    /**
+     * Sanitize and format a value to a float with the given number of decimal places.
+     */
+    private function sanitizeFloatWithDecimals($value, int $decimals): string
+    {
         // Ensure the input is a string and not empty.
         if (! is_string($value) || strlen($value) < 1) {
             return '';
@@ -23,8 +39,7 @@ trait NumberSanitizer
         // Sanitize the value to allow only numeric data with fractional parts.
         $sanitized_value = filter_var($value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
-        // Convert the value to a float and format it with two decimal places.
-        return number_format((float)$sanitized_value, 2, '.', '');
+        return number_format((float)$sanitized_value, $decimals, '.', '');
     }
 
     /**
