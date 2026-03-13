@@ -3,10 +3,12 @@
 namespace OWC\PDC\Leges\Admin\QuickEdit;
 
 use OWC\PDC\Base\Foundation\ServiceProvider;
+use OWC\PDC\Leges\Traits\NumberSanitizer;
 use WP_Post;
 
 class QuickEditServiceProvider extends ServiceProvider
 {
+    use NumberSanitizer;
     /**
      * Prefix for the quickedit.
      */
@@ -120,13 +122,7 @@ class QuickEditServiceProvider extends ServiceProvider
                 continue;
             }
 
-            $method = explode('-', $key);
-            $method = array_map('ucfirst', $method);
-            $method = implode('', $method);
-
-            if (method_exists($this, $method)) {
-                $this->$method($handler);
-            }
+            $this->renderField($handler);
         }
 
         echo '</div>
@@ -134,37 +130,9 @@ class QuickEditServiceProvider extends ServiceProvider
     }
 
     /**
-     * Adds active date to quickedit handler.
+     * Renders a quickedit input field for the given handler.
      */
-    protected function activeDate(array $item): void
-    {
-        $value = get_post_meta(get_the_ID(), $item['metaboxKey'], true); ?>
-
-		<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
-			<span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
-			<span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
-		</label>
-        <?php
-    }
-
-    /**
-     * Adds price to quickedit handlers.
-     */
-    protected function price(array $item): void
-    {
-        $value = get_post_meta(get_the_ID(), $item['metaboxKey'], true); ?>
-
-		<label class="aligncenter" for="<?php echo $item['metaboxKey']; ?>">
-			<span class="title"><?php echo __($item['label'], 'pdc-leges'); ?></span>
-			<span class="input-text-wrap"><input type="text" id="<?php echo $item['metaboxKey']; ?>" name="<?php echo $item['metaboxKey']; ?>" value="<?php echo $value; ?>"></span>
-		</label>
-        <?php
-    }
-
-    /**
-     * Adds newPrice to quickedit handlers.
-     */
-    protected function newPrice(array $item): void
+    protected function renderField(array $item): void
     {
         $value = get_post_meta(get_the_ID(), $item['metaboxKey'], true); ?>
 
@@ -188,6 +156,11 @@ class QuickEditServiceProvider extends ServiceProvider
             'price' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'price'),
                 'label' => __('Price', 'pdc-leges'),
+            ],
+            'percentage' => [
+                'metaboxKey' => sprintf('%s-%s', $this->prefix, 'percentage'),
+                'label' => __('Percentage', 'pdc-leges'),
+                'sanitize_cb' => [$this, 'sanitizeFloatFourDecimals'],
             ],
             'active-date' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'active-date'),
@@ -220,10 +193,17 @@ class QuickEditServiceProvider extends ServiceProvider
         }
 
         foreach ($this->getQuickEditHandlers() as $key => $handler) {
-            // update!
-            if (isset($_POST["{$this->prefix}-{$key}"])) {
-                update_post_meta($postID, "{$this->prefix}-{$key}", $_POST["{$this->prefix}-{$key}"]);
+            if (! isset($_POST["{$this->prefix}-{$key}"])) {
+                continue;
             }
+
+            $value = $_POST["{$this->prefix}-{$key}"];
+
+            if (isset($handler['sanitize_cb']) && is_callable($handler['sanitize_cb'])) {
+                $value = call_user_func($handler['sanitize_cb'], $value);
+            }
+
+            update_post_meta($postID, "{$this->prefix}-{$key}", $value);
         }
     }
 
