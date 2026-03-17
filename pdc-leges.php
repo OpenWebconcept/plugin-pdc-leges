@@ -11,6 +11,8 @@
  * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  * Text Domain:       pdc-leges
  * Domain Path:       /languages
+ * Requires plugins:  pdc-base
+ * Requires at least: 6.0
  */
 
 use OWC\PDC\Leges\Autoloader;
