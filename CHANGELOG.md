@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2.2.10
+
+### Fixed
+
+- cleanup dependencies
+
 ## 2.2.9
 
 ### Fixed
