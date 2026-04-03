@@ -51,17 +51,25 @@ msgstr "Breid de geregistreerde metaboxen uit met de volgende functies: een drem
 msgid "The following plugins are required to use the PDC Leges:"
 msgstr "De PDC Leges plugin heeft de volgende plugins nodig om te functioneren:"
 
-#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:186
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:154
 msgid "New price"
 msgstr "Nieuw bedrag"
 
-#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:190
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:158
 msgid "Price"
 msgstr "Bedrag"
 
-#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:194
-#: src/Leges/Metabox/Metabox.php:64
-#: src/Leges/PostType/LegesPostTypeServiceProvider.php:68
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:162
+msgid "Percentage"
+msgstr "Percentage"
+
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:167
+msgid "New percentage"
+msgstr "Nieuw percentage"
+
+#: src/Leges/Admin/QuickEdit/QuickEditServiceProvider.php:172
+#: src/Leges/Metabox/Metabox.php:78
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:89
 msgid "Date new lege active"
 msgstr "Datum actief nieuwe lege"
 
@@ -82,7 +90,24 @@ msgstr "Prijs in &euro;"
 msgid "Lege new price"
 msgstr "Lege nieuw bedrag"
 
-#: src/Leges/Metabox/Metabox.php:69
+#: src/Leges/Metabox/Metabox.php:56
+msgid "Lege percentage"
+msgstr "Lege percentage"
+
+#: src/Leges/Metabox/Metabox.php:57
+#: src/Leges/Metabox/Metabox.php:65
+msgid "Percentage (%)"
+msgstr "Percentage (%)"
+
+#: src/Leges/Metabox/Metabox.php:64
+msgid "Lege new percentage"
+msgstr "Nieuw percentage"
+
+#: src/Leges/Metabox/Metabox.php:72
+msgid "Use percentage instead of price"
+msgstr "Gebruik percentage in plaats van prijs"
+
+#: src/Leges/Metabox/Metabox.php:83
 msgid "dd-mm-yy"
 msgstr "dd-mm-yy"
 
@@ -183,10 +208,6 @@ msgstr "Geen leges gevonden."
 msgid "No leges found in Trash."
 msgstr "Geen leges gevonden in de prullenbak."
 
-#: src/Leges/PostType/LegesPostTypeServiceProvider.php:45
-msgid "PDC leges"
-msgstr "PDC leges"
-
 #: src/Leges/PostType/LegesPostTypeServiceProvider.php:60
 msgid "Lege price (in &euro;)"
 msgstr "Lege prijs (in &euro;)"
@@ -195,7 +216,15 @@ msgstr "Lege prijs (in &euro;)"
 msgid "Lege new price (in &euro;)"
 msgstr "Nieuwe lege prijs (in &euro;)"
 
-#: src/Leges/PostType/LegesPostTypeServiceProvider.php:73
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:75
+msgid "Lege percentage (%)"
+msgstr "Lege percentage (%)"
+
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:82
+msgid "Lege new percentage (%)"
+msgstr "Nieuw lege percentage (%)"
+
+#: src/Leges/PostType/LegesPostTypeServiceProvider.php:94
 msgid "Lege shortcode"
 msgstr "Lege shortcode"
 
