@@ -61,6 +61,14 @@ class Metabox
         ]);
 
         $cmb->add_field([
+            'name' => __('Lege new percentage', 'pdc-leges'),
+            'desc' => __('Percentage (%)', 'pdc-leges'),
+            'id' => sprintf('%s-new-percentage', self::PREFIX),
+            'type' => 'text',
+            'sanitization_cb' => [$this, 'sanitizeFloatFourDecimals'],
+        ]);
+
+        $cmb->add_field([
             'name' => esc_html__('Date new lege active', 'pdc-leges'),
             'id' => sprintf('%s-active-date', self::PREFIX),
             'type' => 'text_date',

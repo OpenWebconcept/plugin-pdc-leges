@@ -162,6 +162,11 @@ class QuickEditServiceProvider extends ServiceProvider
                 'label' => __('Percentage', 'pdc-leges'),
                 'sanitize_cb' => [$this, 'sanitizeFloatFourDecimals'],
             ],
+            'new-percentage' => [
+                'metaboxKey' => sprintf('%s-%s', $this->prefix, 'new-percentage'),
+                'label' => __('New percentage', 'pdc-leges'),
+                'sanitize_cb' => [$this, 'sanitizeFloatFourDecimals'],
+            ],
             'active-date' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'active-date'),
                 'label' => __('Date new lege active', 'pdc-leges'),

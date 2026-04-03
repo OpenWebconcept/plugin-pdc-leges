@@ -62,6 +62,8 @@ class LegesController
         $allowed = apply_filters('owc/pdc/leges/rest-api/args/allowed-meta-keys', [
             '_pdc-lege-price',
             '_pdc-lege-new-price',
+            '_pdc-lege-percentage',
+            '_pdc-lege-new-percentage',
             '_pdc-lege-active-date',
             '_pdc-lege-start-time',
             '_pdc-lege-end-time',
