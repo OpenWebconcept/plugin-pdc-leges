@@ -68,6 +68,12 @@ class Metabox
             'sanitization_cb' => [$this, 'sanitizeFloatFourDecimals'],
         ]);
 
+		$cmb->add_field([
+			'name' => __('Use percentage instead of price', 'pdc-leges'),
+			'id' => sprintf('%s-use-percentage', self::PREFIX),
+			'type' => 'checkbox',
+		]);
+
         $cmb->add_field([
             'name' => esc_html__('Date new lege active', 'pdc-leges'),
             'id' => sprintf('%s-active-date', self::PREFIX),
