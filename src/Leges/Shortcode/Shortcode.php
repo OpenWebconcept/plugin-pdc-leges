@@ -41,8 +41,8 @@ class Shortcode
 
         ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage, 'newPercentage' => $newPercentage, 'usePercentage' => $usePercentage] = $this->extractMeta($attributes);
 
-        if ($usePercentage === 'on') {
-            if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && $newPercentage !== '' && $newPercentage !== null) {
+        if ('on' === $usePercentage) {
+            if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && '' !== $newPercentage && null !== $newPercentage) {
                 $percentage = $newPercentage;
             }
 
