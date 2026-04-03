@@ -216,6 +216,10 @@ class QuickEditServiceProviderTest extends TestCase
 
         $_POST['_pdc-lege-price'] = '10';
 
+        WP_Mock::userFunction('wp_unslash', [
+            'return' => '10',
+        ]);
+
         WP_Mock::userFunction('update_post_meta', [
             'times' => 1,
             'return' => true,
