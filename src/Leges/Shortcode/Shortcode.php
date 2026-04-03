@@ -19,6 +19,7 @@ class Shortcode
         '_pdc-lege-new-price' => null,
         '_pdc-lege-percentage' => null,
         '_pdc-lege-new-percentage' => null,
+        '_pdc-lege-use-percentage' => null,
     ];
 
     /**
@@ -38,9 +39,9 @@ class Shortcode
             return false;
         }
 
-        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage, 'newPercentage' => $newPercentage] = $this->extractMeta($attributes);
+        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage, 'newPercentage' => $newPercentage, 'usePercentage' => $usePercentage] = $this->extractMeta($attributes);
 
-        if ($percentage !== '' && $percentage !== null) {
+        if ($usePercentage === 'on') {
             if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && $newPercentage !== '' && $newPercentage !== null) {
                 $percentage = $newPercentage;
             }
@@ -74,6 +75,7 @@ class Shortcode
             'dateActive' => $metaData['_pdc-lege-active-date'] ?? '',
             'percentage' => $metaData['_pdc-lege-percentage'] ?? '',
             'newPercentage' => $metaData['_pdc-lege-new-percentage'] ?? '',
+            'usePercentage' => $metaData['_pdc-lege-use-percentage'] ?? '',
         ];
     }
 
