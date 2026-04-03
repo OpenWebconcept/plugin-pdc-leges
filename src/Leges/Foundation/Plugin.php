@@ -25,6 +25,11 @@ class Plugin extends BasePlugin
      */
     const VERSION = '2.2.10';
 
+    public function loadTextDomain(): void
+    {
+        load_plugin_textdomain($this->getName(), false, basename($this->rootPath) . '/languages/');
+    }
+
     protected function checkForUpdate()
     {
         if (! class_exists(PucFactory::class) || $this->isExtendedClass()) {
