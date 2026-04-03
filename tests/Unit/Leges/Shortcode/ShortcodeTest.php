@@ -325,6 +325,7 @@ class ShortcodeTest extends TestCase
                     '_pdc-lege-price' => '572,41',
                     '_pdc-lege-new-price' => null,
                     '_pdc-lege-percentage' => '0.1234',
+                    '_pdc-lege-use-percentage' => 'on',
                 ],
             ]
         );
@@ -383,6 +384,7 @@ class ShortcodeTest extends TestCase
                     '_pdc-lege-new-price' => null,
                     '_pdc-lege-percentage' => '0.1234',
                     '_pdc-lege-new-percentage' => '0.5678',
+                    '_pdc-lege-use-percentage' => 'on',
                 ],
             ]
         );
@@ -441,6 +443,7 @@ class ShortcodeTest extends TestCase
                     '_pdc-lege-new-price' => null,
                     '_pdc-lege-percentage' => '0.1234',
                     '_pdc-lege-new-percentage' => '0.5678',
+                    '_pdc-lege-use-percentage' => 'on',
                 ],
             ]
         );
