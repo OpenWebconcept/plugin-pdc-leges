@@ -352,6 +352,122 @@ class ShortcodeTest extends TestCase
     }
 
     /** @test */
+    public function shortcode_is_rendered_correctly_when_new_percentage_is_set_and_date_is_active()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::passthruFunction('absint', [
+            'return_args' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => '06-05-2018',
+                    '_pdc-lege-price' => '572,41',
+                    '_pdc-lege-new-price' => null,
+                    '_pdc-lege-percentage' => '0.1234',
+                    '_pdc-lege-new-percentage' => '0.5678',
+                ],
+            ]
+        );
+
+        \WP_Mock::passthruFunction('esc_html');
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>0,5678%</span>',
+                ],
+                'return' => '<span>0,5678%</span>',
+            ]
+        );
+
+        $attributes = [
+            'id' => $this->postID,
+        ];
+
+        $actual = $this->service->addShortcode($attributes);
+        $expected = '<span>0,5678%</span>';
+
+        $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
+    public function shortcode_is_rendered_correctly_when_new_percentage_is_set_but_date_is_not_active()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::passthruFunction('absint', [
+            'return_args' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => '23-05-3000',
+                    '_pdc-lege-price' => '572,41',
+                    '_pdc-lege-new-price' => null,
+                    '_pdc-lege-percentage' => '0.1234',
+                    '_pdc-lege-new-percentage' => '0.5678',
+                ],
+            ]
+        );
+
+        \WP_Mock::passthruFunction('esc_html');
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>0,1234%</span>',
+                ],
+                'return' => '<span>0,1234%</span>',
+            ]
+        );
+
+        $attributes = [
+            'id' => $this->postID,
+        ];
+
+        $actual = $this->service->addShortcode($attributes);
+        $expected = '<span>0,1234%</span>';
+
+        $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
     public function shortcode_is_rendered_correctly_when_date_is_active()
     {
         \WP_Mock::passthruFunction('shortcode_atts', [

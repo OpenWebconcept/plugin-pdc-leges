@@ -15,6 +15,8 @@ class UpdateLegesPrices extends AbstractEvent
     private const META_NEW_PRICE = '_pdc-lege-new-price';
     private const META_ACTIVE_DATE = '_pdc-lege-active-date';
     private const META_PRICE = '_pdc-lege-price';
+    private const META_PERCENTAGE = '_pdc-lege-percentage';
+    private const META_NEW_PERCENTAGE = '_pdc-lege-new-percentage';
 
     protected function execute(): void
     {
@@ -46,14 +48,22 @@ class UpdateLegesPrices extends AbstractEvent
             'meta_query' => [
                 'relation' => 'AND',
                 [
-                    'key' => self::META_NEW_PRICE,
+                    'key' => self::META_ACTIVE_DATE,
                     'value' => '',
                     'compare' => '!=',
                 ],
                 [
-                    'key' => self::META_ACTIVE_DATE,
-                    'value' => '',
-                    'compare' => '!=',
+                    'relation' => 'OR',
+                    [
+                        'key' => self::META_NEW_PRICE,
+                        'value' => '',
+                        'compare' => '!=',
+                    ],
+                    [
+                        'key' => self::META_NEW_PERCENTAGE,
+                        'value' => '',
+                        'compare' => '!=',
+                    ],
                 ],
             ],
         ]);
@@ -102,8 +112,19 @@ class UpdateLegesPrices extends AbstractEvent
      */
     protected function updatePostMeta(WP_Post $lege): void
     {
-        $currentPrice = get_post_meta($lege->ID, self::META_PRICE, true);
+        $this->updatePrice($lege);
+        $this->updatePercentage($lege);
+
+        update_post_meta($lege->ID, self::META_ACTIVE_DATE, '');
+    }
+
+    protected function updatePrice(WP_Post $lege): void
+    {
         $newPrice = get_post_meta($lege->ID, self::META_NEW_PRICE, true);
+
+        if (empty($newPrice)) {
+            return;
+        }
 
         if (! $this->sanitizeAndCheckNumeric($newPrice)) {
             $this->logError(sprintf(
@@ -115,6 +136,7 @@ class UpdateLegesPrices extends AbstractEvent
             return;
         }
 
+        $currentPrice = get_post_meta($lege->ID, self::META_PRICE, true);
         $updated = update_post_meta($lege->ID, self::META_PRICE, $newPrice);
 
         /**
@@ -123,13 +145,42 @@ class UpdateLegesPrices extends AbstractEvent
          * If they are not the same, something else went wrong, so stop the current iteration.
          */
         if (! $updated && $currentPrice !== $newPrice) {
-            $this->logError(sprintf('could not update lege [%s].', $lege->post_title));
+            $this->logError(sprintf('could not update lege price [%s].', $lege->post_title));
 
             return;
         }
 
         update_post_meta($lege->ID, self::META_NEW_PRICE, '');
-        update_post_meta($lege->ID, self::META_ACTIVE_DATE, '');
+    }
+
+    protected function updatePercentage(WP_Post $lege): void
+    {
+        $newPercentage = get_post_meta($lege->ID, self::META_NEW_PERCENTAGE, true);
+
+        if (empty($newPercentage)) {
+            return;
+        }
+
+        if (! $this->sanitizeAndCheckNumeric($newPercentage)) {
+            $this->logError(sprintf(
+                'Could not update lege [%s], new percentage meta field is not numeric (value: %s).',
+                $lege->post_title,
+                var_export($newPercentage, true)
+            ));
+
+            return;
+        }
+
+        $currentPercentage = get_post_meta($lege->ID, self::META_PERCENTAGE, true);
+        $updated = update_post_meta($lege->ID, self::META_PERCENTAGE, $newPercentage);
+
+        if (! $updated && $currentPercentage !== $newPercentage) {
+            $this->logError(sprintf('could not update lege percentage [%s].', $lege->post_title));
+
+            return;
+        }
+
+        update_post_meta($lege->ID, self::META_NEW_PERCENTAGE, '');
     }
 
     /**

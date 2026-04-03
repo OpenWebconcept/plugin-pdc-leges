@@ -18,6 +18,7 @@ class Shortcode
         '_pdc-lege-price' => null,
         '_pdc-lege-new-price' => null,
         '_pdc-lege-percentage' => null,
+        '_pdc-lege-new-percentage' => null,
     ];
 
     /**
@@ -37,9 +38,13 @@ class Shortcode
             return false;
         }
 
-        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage] = $this->extractMeta($attributes);
+        ['price' => $price, 'newPrice' => $newPrice, 'dateActive' => $dateActive, 'percentage' => $percentage, 'newPercentage' => $newPercentage] = $this->extractMeta($attributes);
 
         if ($percentage !== '' && $percentage !== null) {
+            if ($this->hasDate($dateActive) && $this->dateIsNow($dateActive) && $newPercentage !== '' && $newPercentage !== null) {
+                $percentage = $newPercentage;
+            }
+
             $format = apply_filters('owc/pdc/leges/shortcode/percentage/format', '<span>%s%%</span>');
             $output = sprintf($format, esc_html(str_replace('.', ',', $percentage)));
             $output = apply_filters('owc/pdc/leges/shortcode/after-format', $output);
@@ -68,6 +73,7 @@ class Shortcode
             'newPrice' => $metaData['_pdc-lege-new-price'] ?? '',
             'dateActive' => $metaData['_pdc-lege-active-date'] ?? '',
             'percentage' => $metaData['_pdc-lege-percentage'] ?? '',
+            'newPercentage' => $metaData['_pdc-lege-new-percentage'] ?? '',
         ];
     }
 
