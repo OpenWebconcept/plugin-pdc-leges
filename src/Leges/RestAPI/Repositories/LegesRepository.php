@@ -32,6 +32,7 @@ class LegesRepository extends AbstractRepository
             'new_price_active_date' => get_post_meta($post->ID, '_pdc-lege-active-date', true) ?: null,
             'percentage' => ($percentage = get_post_meta($post->ID, '_pdc-lege-percentage', true)) === '' ? null : $percentage,
             'new_percentage' => ($newPercentage = get_post_meta($post->ID, '_pdc-lege-new-percentage', true)) === '' ? null : $newPercentage,
+            'use_percentage' => get_post_meta($post->ID, '_pdc-lege-use-percentage', true) === 'on',
         ], $this->extendedMetaboxValues($post));
     }
 
