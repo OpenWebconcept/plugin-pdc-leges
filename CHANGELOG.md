@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 2.3.0
+
+### Added
+
+- Add percentage field to Leges post type with toggle option for using percentage instead of price
+- Add percentage validation and sanitization
+- Add percentage translations and update text domain loading
+- Add use percentage toggle to shortcode logic
+
+### Fixed
+
+- Mock wp_unslash function in QuickEditServiceProviderTest
+
+### Changed
+
+- Format PHP code
+- Update composer.lock
+
 ## 2.2.10
 
 ### Fixed
