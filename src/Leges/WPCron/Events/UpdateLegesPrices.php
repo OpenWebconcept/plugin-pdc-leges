@@ -122,7 +122,7 @@ class UpdateLegesPrices extends AbstractEvent
     {
         $newPrice = get_post_meta($lege->ID, self::META_NEW_PRICE, true);
 
-        if (empty($newPrice)) {
+        if (! is_string($newPrice) || '' === trim($newPrice)) {
             return;
         }
 
@@ -157,7 +157,7 @@ class UpdateLegesPrices extends AbstractEvent
     {
         $newPercentage = get_post_meta($lege->ID, self::META_NEW_PERCENTAGE, true);
 
-        if (empty($newPercentage)) {
+        if (! is_string($newPercentage) || '' === trim($newPercentage)) {
             return;
         }
 

@@ -14,6 +14,8 @@ trait NumberSanitizer
 
     /**
      * Sanitize and format a value to a float with four decimal places.
+     *
+     * @since 2.3.0
      */
     public function sanitizeFloatFourDecimals($value): string
     {
@@ -22,6 +24,8 @@ trait NumberSanitizer
 
     /**
      * Sanitize and format a value to a float with the given number of decimal places.
+     *
+     * @since 2.3.0
      */
     private function sanitizeFloatWithDecimals($value, int $decimals): string
     {

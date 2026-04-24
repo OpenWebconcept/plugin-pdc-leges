@@ -75,14 +75,14 @@ class LegesPostTypeServiceProvider extends ServiceProvider
                     'title' => __('Lege percentage (%)', 'pdc-leges'),
                     'function' => function () {
                         $percentage = get_post_meta(get_the_ID(), "{$this->prefix}-percentage", true);
-                        echo ('' !== $percentage && null !== $percentage) ? esc_html(str_replace('.', ',', $percentage)) . '%' : '';
+                        echo (is_string($percentage) && '' !== trim($percentage)) ? esc_html(str_replace('.', ',', $percentage)) . '%' : '';
                     },
                 ],
                 'new-percentage' => [
                     'title' => __('Lege new percentage (%)', 'pdc-leges'),
                     'function' => function () {
                         $percentage = get_post_meta(get_the_ID(), "{$this->prefix}-new-percentage", true);
-                        echo ('' !== $percentage && null !== $percentage) ? esc_html(str_replace('.', ',', $percentage)) . '%' : '';
+                        echo (is_string($percentage) && '' !== trim($percentage)) ? esc_html(str_replace('.', ',', $percentage)) . '%' : '';
                     },
                 ],
                 'active-date' => [
