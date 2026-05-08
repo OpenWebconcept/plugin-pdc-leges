@@ -1,0 +1,31 @@
+name: "plugin-pdc-leges"
+
+applicationSuite:
+  name: "OpenWebconcept"
+
+publiccodeYmlVersion: 1.0
+url: "https://github.com/OpenWebconcept/plugin-pdc-leges"
+
+platforms:
+  - "web"
+
+categories:
+  - "application-development"
+
+softwareType: "softwareAddon"
+
+description:
+  localisedName: "PDC Leges"
+  shortDescription: "Met deze plugin kan je de leges beheren. De kosten van een product kan je in een tabel beheren en eenvoudig aanpassen."
+  longDescription: "Met deze plugin kan je de leges beheren. De kosten van een product kan je in een tabel beheren en eenvoudig aanpassen."
+
+nl:
+  commonground:
+    layerType: "service"
+
+dependsOn:
+  open:
+    - name: "pdc-base"
+    - versionMin: 3.4.7
+    - name: "WordPress"
+    - versionMin: 6.0.3
