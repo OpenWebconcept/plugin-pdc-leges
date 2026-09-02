@@ -99,6 +99,22 @@ The event queries all leges that have valid values in the "New lege price" and "
 
 Errors will be written to the WordPress debug.log file. To enable this, the WP_DEBUG constant needs to be defined as true. Currently, errors occurring while executing WP Cron Events are logged. In the future, logging will be expanded to cover the entire plugin at appropriate locations.
 
+### Shortcode
+
+Render the price of a lege:
+
+```
+[pdc::leges id="12"]
+```
+
+The `id` attribute also accepts a comma separated list. The prices are then added up and rendered as a single total:
+
+```
+[pdc::leges id="12,34"]
+```
+
+Leges which do not exist and leges which use a percentage instead of a price are skipped when adding up. The `owc/pdc/leges/shortcode/format` and `owc/pdc/leges/shortcode/after-format` filters apply to the total as well.
+
 ### Filters & Actions
 
 There are various [hooks](https://codex.wordpress.org/Plugin_API/Hooks), which allows for changing the output.
