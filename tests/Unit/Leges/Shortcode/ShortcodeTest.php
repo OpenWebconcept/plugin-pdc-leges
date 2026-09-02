@@ -32,6 +32,11 @@ class ShortcodeTest extends TestCase
      */
     protected $postID = 10;
 
+    /**
+     * @var int
+     */
+    protected $secondPostID = 11;
+
     public function setUp(): void
     {
         \WP_Mock::setUp();
@@ -533,5 +538,374 @@ class ShortcodeTest extends TestCase
         $expected = '<span>&euro; 20,00</span>';
 
         $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
+    public function shortcode_sums_prices_when_multiple_ids_are_set()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::passthruFunction('absint', [
+            'return_args' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->secondPostID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => '10.00',
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->secondPostID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => '15.50',
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    25.50,
+                    2,
+                ],
+                'return' => '25,50',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 25,50</span>',
+                ],
+                'return' => '<span>&euro; 25,50</span>',
+            ]
+        );
+
+        $attributes = [
+            'id' => '10,11',
+        ];
+
+        $actual = $this->service->addShortcode($attributes);
+        $expected = '<span>&euro; 25,50</span>';
+
+        $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
+    public function shortcode_sums_prices_when_a_price_holds_a_comma_decimal()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::passthruFunction('absint', [
+            'return_args' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->secondPostID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => '10,50',
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->secondPostID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => '5.00',
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    15.50,
+                    2,
+                ],
+                'return' => '15,50',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 15,50</span>',
+                ],
+                'return' => '<span>&euro; 15,50</span>',
+            ]
+        );
+
+        $attributes = [
+            'id' => '10, 11',
+        ];
+
+        $actual = $this->service->addShortcode($attributes);
+        $expected = '<span>&euro; 15,50</span>';
+
+        $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
+    public function shortcode_skips_percentage_leges_when_summing()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::passthruFunction('absint', [
+            'return_args' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->secondPostID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => '10.00',
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->secondPostID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-percentage' => '0.2100',
+                    '_pdc-lege-use-percentage' => 'on',
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    10.00,
+                    2,
+                ],
+                'return' => '10,00',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 10,00</span>',
+                ],
+                'return' => '<span>&euro; 10,00</span>',
+            ]
+        );
+
+        $attributes = [
+            'id' => '10,11',
+        ];
+
+        $actual = $this->service->addShortcode($attributes);
+        $expected = '<span>&euro; 10,00</span>';
+
+        $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
+    public function shortcode_skips_non_existing_ids_when_summing()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::passthruFunction('absint', [
+            'return_args' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => true,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->secondPostID,
+                'return' => false,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_metadata',
+            [
+                'args' => [
+                    'post',
+                    $this->postID,
+                ],
+                'return' => [
+                    '_pdc-lege-active-date' => null,
+                    '_pdc-lege-price' => '10.00',
+                    '_pdc-lege-new-price' => null,
+                ],
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'number_format_i18n',
+            [
+                'args' => [
+                    10.00,
+                    2,
+                ],
+                'return' => '10,00',
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'wp_kses_post',
+            [
+                'args' => [
+                    '<span>&euro; 10,00</span>',
+                ],
+                'return' => '<span>&euro; 10,00</span>',
+            ]
+        );
+
+        $attributes = [
+            'id' => '10,11',
+        ];
+
+        $actual = $this->service->addShortcode($attributes);
+        $expected = '<span>&euro; 10,00</span>';
+
+        $this->assertEquals($actual, $expected);
+    }
+
+    /** @test */
+    public function shortcode_is_rendered_incorrectly_when_no_id_in_the_list_exists()
+    {
+        \WP_Mock::passthruFunction('shortcode_atts', [
+            'return_arg' => 1,
+        ]);
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->postID,
+                'return' => false,
+            ]
+        );
+
+        \WP_Mock::userFunction(
+            'get_post_status',
+            [
+                'args' => $this->secondPostID,
+                'return' => false,
+            ]
+        );
+
+        $attributes = [
+            'id' => '10,11',
+        ];
+
+        $actual = (bool) $this->service->addShortcode($attributes);
+
+        $this->assertFalse($actual);
     }
 }
