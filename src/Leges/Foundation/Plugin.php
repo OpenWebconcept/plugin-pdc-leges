@@ -23,7 +23,7 @@ class Plugin extends BasePlugin
      * Version of the plugin.
      * Used for setting versions of enqueue scripts and styles.
      */
-    const VERSION = '2.3.0';
+    const VERSION = '2.4.0';
 
     public function loadTextDomain(): void
     {
