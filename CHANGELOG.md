@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2.4.0
+
+### Added
+
+- Allow the shortcode id attribute to take a comma separated list of leges and render the total price
+- Document the shortcode and its id attribute in the README
+
+### Fixed
+
+- Stop silently truncating a comma separated id attribute to its first lege
+- Fix fatal error on the plugins screen when a required plugin is missing: the dependency notice was invoked instead of registered as a callback
+
 ## 2.3.0
 
 ### Added
