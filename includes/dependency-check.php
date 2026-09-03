@@ -9,13 +9,17 @@ class DependencyCheck
         include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
         if (! is_plugin_active('pdc-base/pdc-base.php')) {
-            add_action('admin_notices', [self::showPluginDependencyNotice('OpenPDC Base (version >= 3.0.0)')]);
+            add_action('admin_notices', function (): void {
+                self::showPluginDependencyNotice('OpenPDC Base (version >= 3.0.0)');
+            });
 
             return false;
         }
 
         if (! is_plugin_active('cmb2/init.php')) {
-            add_action('admin_notices', [self::showPluginDependencyNotice('CMB2')]);
+            add_action('admin_notices', function (): void {
+                self::showPluginDependencyNotice('CMB2');
+            });
 
             return false;
         }
