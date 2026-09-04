@@ -33,7 +33,7 @@ class Shortcode
 
         $ids = $this->parseIDs($attributes['id'] ?? 0);
 
-        if (empty($ids)) {
+        if ([] === $ids) {
             return false;
         }
 
