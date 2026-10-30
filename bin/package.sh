@@ -11,15 +11,26 @@ rsync \
 	--exclude='releases/*' \
 	./ ./releases/pdc-leges/
 
-# Remove current vendor folder (if any)
-# and install the dependencies without dev packages.
 cd ./releases/pdc-leges || exit
-composer install -o --no-dev
+
+# The release zip ships its own vendor folder and must run on the lowest
+# supported PHP version (7.4). composer.json deliberately does not pin
+# dependencies (e.g. symfony/finder) to PHP 7.4 compatible versions, because
+# that would force those versions on PHP 8 projects that install this plugin
+# via Composer. Instead, resolve the production dependencies for PHP 7.4 here.
+# require-dev is removed first: its packages (e.g. phpunit) need PHP 8.1+ and
+# would otherwise make resolution fail, even with --no-dev.
+set -e
+composer config --unset require-dev
+composer config platform.php 7.4.33
+composer update -o --no-dev
+set +e
 
 # Remove unneeded files in a WordPress plugin
 rm -rf ./.git ./composer.json ./.gitignore ./.editorconfig ./.eslintignore \
 	./.eslintrc ./.php-cs-fixer.php ./composer.lock ./bin \
-	./phpstan.neon.dist ./phpunit.xml.dist ./tests \
+	./phpstan.neon.dist ./phpunit.xml.dist ./phpunit.xml ./phpcs.xml.dist \
+	./package.json ./package-lock.json ./bitbucket-pipelines.yml ./tests \
 	./DOCKER_ENV ./docker_tag ./output.log ./.github
 
 cd ../
