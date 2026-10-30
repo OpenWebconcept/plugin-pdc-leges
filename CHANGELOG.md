@@ -1,211 +1,144 @@
-# CHANGELOG
+# Changelog
 
-## 2.4.0
+## [v2.4.1] - 2026-10-30
 
-### Added
+- Fix: allow PDC lege meta changes in quick edit
 
-- Allow the shortcode id attribute to take a comma separated list of leges and render the total price
-- Document the shortcode and its id attribute in the README
+## [v2.4.0] - 2026-09-04
 
-### Fixed
+- Added: allow the shortcode id attribute to take a comma separated list of leges and render the total price
+- Added: document the shortcode and its id attribute in the README
+- Fix: stop silently truncating a comma separated id attribute to its first lege
+- Fix: fatal error on the plugins screen when a required plugin is missing: the dependency notice was invoked instead of registered as a callback
 
-- Stop silently truncating a comma separated id attribute to its first lege
-- Fix fatal error on the plugins screen when a required plugin is missing: the dependency notice was invoked instead of registered as a callback
+## [v2.3.0] - 2026-04-24
 
-## 2.3.0
+- Added: percentage field to Leges post type with toggle option for using percentage instead of price
+- Added: percentage validation and sanitization
+- Added: percentage translations and update text domain loading
+- Added: use percentage toggle to shortcode logic
+- Fix: mock wp_unslash function in QuickEditServiceProviderTest
+- Change: format PHP code
+- Change: update composer.lock
 
-### Added
+## [v2.2.10] - 2026-03-17
 
-- Add percentage field to Leges post type with toggle option for using percentage instead of price
-- Add percentage validation and sanitization
-- Add percentage translations and update text domain loading
-- Add use percentage toggle to shortcode logic
+- Fix: cleanup dependencies
 
-### Fixed
+## [v2.2.9] - 2025-03-25
 
-- Mock wp_unslash function in QuickEditServiceProviderTest
+- Fix: autoloader
 
-### Changed
+## [v2.2.8] - 2025-03-13
 
-- Format PHP code
-- Update composer.lock
+- Fix: make johnpbloch/wordpress a dev dependency
 
-## 2.2.10
+## [v2.2.7] - 2025-03-13
 
-### Fixed
+- Fix: text domain
 
-- cleanup dependencies
+## [v2.2.6] - 2025-01-21
 
-## 2.2.9
+- Fix: apply reversed order of args in apply_filters.
 
-### Fixed
+## [v2.2.5] - 2025-01-20
 
-- Autoloader
+- Fix: normalize price formats and handle '0.00' and '0,00' correctly in update lege prices cron event.
 
-## 2.2.8
+## [v2.2.4] - 2024-10-18
 
-### Fixed
+- Fix: add prefix to deactivation function to avoid conflict.
 
-- make johnpbloch/wordpress a dev dependency
+## [v2.2.3] - 2024-10-09
 
-## 2.2.7
+- Fix: possible $page array was allowed without an ID during registration of settings pages.
 
-### Fixed
+## [v2.2.2] - 2024-09-24
 
-- Text domain
+- Change: remove ',-' from old lege prices while executing WP Cron event LegesPricesSaveFormat
 
-## 2.2.6
+## [v2.2.1] - 2024-09-21
 
-### Fixed
+- Fix: number_format_i18n failed when price param was not float
 
-- Apply reversed order of args in apply_filters.
+## [v2.2.0] - 2024-09-09
 
-## 2.2.5
+- Added: a new WP Cron event that converts the meta values '_pdc-lege-price' and '_pdc-lege-new-price' from string format (e.g., "196,00") to float string format (e.g., "196.00"). This change ensures consistent data storage and improves compatibility with arithmetic operations and data processing. The event is executed only once upon installation of this version.
+- Added: new meta fields added to the Custom Post Type (CPT) `pdc-leges` to support the enhanced functionality and data structure.
 
-### Fixed
+## [v2.1.0] - 2024-07-17
 
-- Normalize price formats and handle '0.00' and '0,00' correctly in update lege prices cron event.
+- Change: replaced the Metabox.io plugin with the open-source CMB2 plugin to align with OpenWebConcept's policy of using open-source solutions. This change is fully backward-compatible, except for cases where an external plugin or theme uses the 'rwmb_meta_boxes' hook to add custom metaboxes.
+- Change: updated translations
+- Change: license
 
-## 2.2.4
+## [v2.0.0] - 2024-07-15
 
-### Fixed
+- Added: register REST endpoints
+- Added: replaced commands with WP Cron Events, reducing the need for server cron job configuration
+- Added: updated `README.md`
 
-- Add prefix to deactivation function to avoid conflict.
+## [v1.2.5] - 2024-07-01
 
-## 2.2.3
+- Change: no changes. Corrects version and git tag which were out of sync
 
-### Fixed
+## [v1.2.4] - 2024-06-28
 
-- Possible $page array was allowed without an ID during registration of settings pages.
+- Change: no changes. Corrects version and git tag which were out of sync
 
-## 2.2.2
+## [v1.2.3] - 2023-12-13
 
-### Changed
+- Fix: avoid exiting with an error code when there is nothing to update
 
-- Remove ',-' from old lege prices while executing WP Cron event LegesPricesSaveFormat
+## [v1.2.2] - 2023-12-13
 
-## 2.2.1
+- Added: search box to find leges items by ID
 
-### Fixed
+## [v1.2.1] - 2023-06-28
 
-- number_format_i18n failed when price param was not float
+- Fix: missing PHP extension when running GH workflows
 
-## 2.2.0
+## [v1.2.0] - 2023-06-28
 
-### Added
+- Added: updates can now be provided through the Admin interface
 
-- A new WP Cron event that converts the meta values '_pdc-lege-price' and '_pdc-lege-new-price' from string format (e.g., "196,00") to float string format (e.g., "196.00"). This change ensures consistent data storage and improves compatibility with arithmetic operations and data processing. The event is executed only once upon installation of this version.
-- New meta fields added to the Custom Post Type (CPT) `pdc-leges` to support the enhanced functionality and data structure.
+## [v1.1.4] - 2023-06-26
 
-## 2.1.0
+- Change: replaced Composer plugin dependency check with runtime check
 
-### Changed
+## [v1.1.3] - 2022-12-21
 
-- Replaced the Metabox.io plugin with the open-source CMB2 plugin to align with OpenWebConcept's policy of using open-source solutions. This change is fully backward-compatible, except for cases where an external plugin or theme uses the 'rwmb_meta_boxes' hook to add custom metaboxes.
-- Updated translations
-- License
+- Fix: validate `datActive` in `dateIsNow` inside Shortcode class
 
-## 2.0.0
+## [v1.1.2] - 2022-10-07
 
-### Added
+- Change: update dependencies and reference pdc-base plugin from BitBucket to GitHub
 
-- Register REST endpoints
-- Replaced commands with WP Cron Events, reducing the need for server cron job configuration
-- Updated `README.md`
+## [v1.1.1] - 2022-05-04
 
-## 1.2.5
+- Fix: new lege price date comparison
 
-### Changed
+## [v1.1.0] - 2022-05-04
 
-- No changes. Corrects version and git tag which were out of sync
+- Added: update lege prices via WP_CLI command
 
-## 1.2.4
+## [v1.0.4] - 2020-08-04
 
-### Changed
+- Change: Composer dependency on pdc-base plug-in updated from `^2.0.0` to `^3.0.0`
 
-- No changes. Corrects version and git tag which were out of sync
+## [v1.0.3] - 2020-01-17
 
-## 1.2.3
+- Fix: WordPress 5.3 class and style changes caused issues with quickedit functionality
 
-### Fixed
+## [v1.0.2] - 2019-12-13
 
-- Avoid exiting with an error code when there is nothing to update
+- Added: admin column
 
-## 1.2.2
+## [v1.0.1] - 2019-05-09
 
-### Added
+- Fix: check if required file for `is_plugin_active` is already loaded, otherwise load it. Props @Jasper Heidebrink
 
-- Added search box to find leges items by ID
+## [v1.0.0] - 2018-10-03
 
-## 1.2.1
-
-### Fixed
-
-- Missing PHP extension when running GH workflows
-
-## 1.2.0
-
-### Added
-
-- Updates can now be provided through the Admin interface
-
-## 1.1.4
-
-### Changed
-
-- Replaced Composer plugin dependency check with runtime check
-
-## 1.1.3
-
-### Fixed
-
-- Validate `datActive` in `dateIsNow` inside Shortcode class
-
-## 1.1.2
-
-### Changed
-
-- Update dependencies and reference pdc-base plugin from BitBucket to GitHub
-
-## 1.1.1
-
-### Fixed
-
-- Fix new lege price date comparison
-
-## 1.1.0
-
-### Added
-
-- Update lege prices via WP_CLI command
-
-## 1.0.4
-
-### Changed
-
-- Composer dependency on pdc-base plug-in updated from `^2.0.0` to `^3.0.0`
-
-## 1.0.3
-
-### Fixed
-
-- WordPress 5.3 class and style changes caused issues with quickedit functionality
-
-## 1.0.2
-
-### Added
-
-- Adding of admin column
-
-## 1.0.1
-
-### Fixed
-
-- Check if required file for `is_plugin_active` is already loaded, otherwise load it. Props @Jasper Heidebrink
-
-## 1.0.0
-
-### Added
-
-- Initial release
-- Added documentation
+- Added: initial release
+- Added: documentation
