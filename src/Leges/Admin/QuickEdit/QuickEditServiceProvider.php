@@ -9,6 +9,7 @@ use WP_Post;
 class QuickEditServiceProvider extends ServiceProvider
 {
     use NumberSanitizer;
+
     /**
      * Prefix for the quickedit.
      */
@@ -152,10 +153,12 @@ class QuickEditServiceProvider extends ServiceProvider
             'new-price' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'new-price'),
                 'label' => __('New price', 'pdc-leges'),
+                'sanitize_cb' => [$this, 'sanitizeFloat'],
             ],
             'price' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'price'),
                 'label' => __('Price', 'pdc-leges'),
+                'sanitize_cb' => [$this, 'sanitizeFloat'],
             ],
             'percentage' => [
                 'metaboxKey' => sprintf('%s-%s', $this->prefix, 'percentage'),
