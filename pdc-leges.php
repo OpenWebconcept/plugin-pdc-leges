@@ -13,6 +13,7 @@
  * Domain Path:       /languages
  * Requires plugins:  pdc-base
  * Requires at least: 6.0
+ * Requires PHP:      7.4
  */
 
 use OWC\PDC\Leges\Autoloader;
