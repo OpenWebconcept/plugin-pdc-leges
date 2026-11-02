@@ -3,6 +3,7 @@
 ## [NEXT] - 2026-11-02
 
 -   Fix: release workflow builds the zip on PHP 7.4 and resolves its dependencies to PHP 7.4 compatible versions
+-   Chore: add pdc-base as dev dependency and migrate phpunit config
 -   Change: exclude more development files from the release zip
 -   Added: `Requires PHP: 7.4` plugin header
 
